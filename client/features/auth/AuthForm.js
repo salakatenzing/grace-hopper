@@ -9,39 +9,51 @@ import { authenticate } from '../../app/store';
 **/
 
 const AuthForm = ({ name, displayName }) => {
-  const { error } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+    const { error } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const formName = evt.target.name;
-    const username = evt.target.username.value;
-    const password = evt.target.password.value;
-    dispatch(authenticate({ username, password, method: formName }));
-  };
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        const formName = evt.target.name;
+        const username = evt.target.username.value;
+        const password = evt.target.password.value;
+        dispatch(authenticate({ username, password, method: formName }));
+    };
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    return (
         <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
+            <form onSubmit={handleSubmit} name={name}>
+                <div class="mb-3">
+                    <label htmlFor="username" class="form-label">
+                        Username
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        name="username"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label htmlFor="password" class="form-label">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                    />
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">
+                        {displayName}
+                    </button>
+                </div>
+                {error && <div> {error} </div>}
+            </form>
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && <div> {error} </div>}
-      </form>
-    </div>
-  );
+    );
 };
 
 export default AuthForm;
