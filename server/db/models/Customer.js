@@ -1,0 +1,90 @@
+const Sequelize = require('sequelize');
+const db = require('../db');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
+const SALT_ROUNDS = 5;
+
+const Customer = db.define('Customer', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    firstName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    lastName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            isEmail: true,
+        },
+    },
+    password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+});
+
+module.exports = Customer;
+
+/**
+ * instanceMethods
+ */
+Customer.prototype.correctPassword = function (candidatePwd) {
+    //we need to compare the plain version to an encrypted version of the password
+    return bcrypt.compare(candidatePwd, this.password);
+};
+
+Customer.prototype.generateToken = function () {
+    return jwt.sign({ id: this.id }, process.env.JWT);
+};
+
+/**
+ * classMethods
+ */
+Customer.authenticate = async function ({ username, password }) {
+    const user = await this.findOne({ where: { username } });
+    if (!user || !(await user.correctPassword(password))) {
+        const error = Error('Incorrect username/password');
+        error.status = 401;
+        throw error;
+    }
+    return user.generateToken();
+};
+
+Customer.findByToken = async function (token) {
+    try {
+        const { id } = await jwt.verify(token, process.env.JWT);
+        const user = Customer.findByPk(id);
+        if (!user) {
+            throw 'nooo';
+        }
+        return user;
+    } catch (ex) {
+        const error = Error('bad token');
+        error.status = 401;
+        throw error;
+    }
+};
+
+/**
+ * hooks
+ */
+const hashPassword = async (user) => {
+    //in case the password has been changed, we want to encrypt it with bcrypt
+    if (user.changed('password')) {
+        user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
+    }
+};
+
+Customer.beforeCreate(hashPassword);
+Customer.beforeUpdate(hashPassword);
+Customer.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
