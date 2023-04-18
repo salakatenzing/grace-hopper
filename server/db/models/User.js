@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 const SALT_ROUNDS = 5;
 
-const Customer = db.define('Customer', {
+const User = db.define('User', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -31,26 +31,30 @@ const Customer = db.define('Customer', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    userType: {
+        type: Sequelize.ENUM('customer', 'admin'),
+        allowNull: false,
+    },
 });
 
-module.exports = Customer;
+module.exports = User;
 
 /**
  * instanceMethods
  */
-Customer.prototype.correctPassword = function (candidatePwd) {
+User.prototype.correctPassword = function (candidatePwd) {
     //we need to compare the plain version to an encrypted version of the password
     return bcrypt.compare(candidatePwd, this.password);
 };
 
-Customer.prototype.generateToken = function () {
+User.prototype.generateToken = function () {
     return jwt.sign({ id: this.id }, process.env.JWT);
 };
 
 /**
  * classMethods
  */
-Customer.authenticate = async function ({ username, password }) {
+User.authenticate = async function ({ username, password }) {
     const user = await this.findOne({ where: { username } });
     if (!user || !(await user.correctPassword(password))) {
         const error = Error('Incorrect username/password');
@@ -60,10 +64,10 @@ Customer.authenticate = async function ({ username, password }) {
     return user.generateToken();
 };
 
-Customer.findByToken = async function (token) {
+User.findByToken = async function (token) {
     try {
         const { id } = await jwt.verify(token, process.env.JWT);
-        const user = Customer.findByPk(id);
+        const user = User.findByPk(id);
         if (!user) {
             throw 'nooo';
         }
@@ -85,6 +89,6 @@ const hashPassword = async (user) => {
     }
 };
 
-Customer.beforeCreate(hashPassword);
-Customer.beforeUpdate(hashPassword);
-Customer.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
+User.beforeCreate(hashPassword);
+User.beforeUpdate(hashPassword);
+User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
