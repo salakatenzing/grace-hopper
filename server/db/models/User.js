@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 const SALT_ROUNDS = 5;
 
-const User = db.define('User', {
+const User = db.define('user', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
