@@ -27,6 +27,12 @@ const Product_Tag = db.define('product_tag', {
       'Coffee',
       'Tea',
       'Juice',
+      'Cheese',
+      'Yogurt',
+      'Butter',
+      'Grains',
+      'Canned Goods',
+      'Pasta',
       'Other'
     ),
     allowNull: false,
