@@ -1,4 +1,5 @@
 'use strict';
+const productList = require('./products');
 
 const {
   db,
@@ -32,8 +33,14 @@ async function seed() {
     }),
   ]);
 
+  // Creating Product List
+  const product = await Promise.all(
+    productList.map((item) => Product.create(item))
+  );
+
   console.log(`seeded ${user.length} user`);
   console.log(`seeded successfully`);
+
   return {
     users: {
       fred: user[0],
