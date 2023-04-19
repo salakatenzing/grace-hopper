@@ -20,7 +20,7 @@ const SingleProductDetail = () => {
           <div className="modal-body">
             {/* most things in here will be replaced with actual info */}
             <img src="https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg" alt="product pic here" width="400px"/>
-            <h5>$10/ea</h5>            
+            <h5>$10/ea</h5>
             <h6>$1000/lb</h6>
             <p>Item description here!! Carrots are apparently good for eyesight improvement.</p>
           </div>
@@ -44,3 +44,9 @@ const SingleProductDetail = () => {
 }
 
 export default SingleProductDetail;
+
+
+
+
+
+
