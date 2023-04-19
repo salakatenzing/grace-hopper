@@ -1,68 +1,6 @@
-// import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { authenticate } from '../../app/store';
-
-// /**
-//   The AuthForm component can be used for Login or Sign Up.
-//   Props for Login: name="login", displayName="Login"
-//   Props for Sign up: name="signup", displayName="Sign Up"
-// **/
-
-// const AuthForm = ({ name, displayName }) => {
-//     const { error } = useSelector((state) => state.auth);
-//     const dispatch = useDispatch();
-
-//     const handleSubmit = (evt) => {
-//         evt.preventDefault();
-//         const formName = evt.target.name;
-//         const username = evt.target.username.value;
-//         const password = evt.target.password.value;
-//         dispatch(authenticate({ username, password, method: formName }));
-//     };
-
-//     return (
-//         <div>
-//             <form onSubmit={handleSubmit} name={name}>
-//                 <div class="mb-3">
-//                     <label htmlFor="username" class="form-label">
-//                         Username
-//                     </label>
-//                     <input
-//                         type="text"
-//                         class="form-control"
-//                         id="username"
-//                         name="username"
-//                     />
-//                 </div>
-//                 <div class="mb-3">
-//                     <label htmlFor="password" class="form-label">
-//                         Password
-//                     </label>
-//                     <input
-//                         type="password"
-//                         class="form-control"
-//                         id="password"
-//                         name="password"
-//                     />
-//                 </div>
-//                 <div>
-//                     <button type="submit" class="btn btn-primary">
-//                         {displayName}
-//                     </button>
-//                 </div>
-//                 {error && <div> {error} </div>}
-//             </form>
-//         </div>
-//     );
-// };
-
-// export default AuthForm;
-
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { authenticate } from '../../app/store';
-import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
 
 /**
@@ -88,7 +26,7 @@ const AuthForm = ({ name, displayName }) => {
         <>
           <h3>Don't have an account?</h3>
           <Link to="/signup">
-            <button type="submit" className="btn btn-primary rounded-pill">
+            <button type="submit" className="btn btn-secondary rounded-pill">
               Signup
             </button>
           </Link>
@@ -99,7 +37,7 @@ const AuthForm = ({ name, displayName }) => {
         <>
           <h3>Already have an account?</h3>
           <Link to="/login">
-            <button type="submit" className="btn btn-primary rounded-pill">
+            <button type="submit" className="btn btn-secondary rounded-pill">
               Login
             </button>
           </Link>
