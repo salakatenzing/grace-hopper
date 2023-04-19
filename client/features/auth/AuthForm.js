@@ -26,7 +26,7 @@ const AuthForm = ({ name, displayName }) => {
         <>
           <h3>Don't have an account?</h3>
           <Link to="/signup">
-            <button type="submit" className="btn btn-secondary rounded-pill">
+            <button type="submit" className="btn btn-primary rounded-pill">
               Signup
             </button>
           </Link>
@@ -37,7 +37,7 @@ const AuthForm = ({ name, displayName }) => {
         <>
           <h3>Already have an account?</h3>
           <Link to="/login">
-            <button type="submit" className="btn btn-secondary rounded-pill">
+            <button type="submit" className="btn btn-primary rounded-pill">
               Login
             </button>
           </Link>

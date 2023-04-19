@@ -1,4 +1,6 @@
 'use strict';
+const productList = require('./products');
+const productTagList = require('./product_tag');
 
 const {
   db,
@@ -32,8 +34,29 @@ async function seed() {
     }),
   ]);
 
+  // Creating Product List
+  const product = await Promise.all(
+    productList.map((item) => Product.create(item))
+  );
+
+  //Creating Product tags
+  const productTags = await Promise.all(
+    productTagList.map(async (productTag, index) => {
+      const product = await Product.findByPk(index + 1);
+      const newTag = await ProductTag.create({
+        main_type: productTag.main_type,
+        sub_type: productTag.sub_type,
+      });
+      await product.addProduct_tag(newTag);
+      return newTag;
+    })
+  );
+
+  console.log(productTags); // logs an array of the newly created ProductTag objects
+
   console.log(`seeded ${user.length} user`);
   console.log(`seeded successfully`);
+
   return {
     users: {
       fred: user[0],
@@ -41,7 +64,7 @@ async function seed() {
     },
   };
 }
-
+// console.log(Product.prototype);
 /*
  We've separated the `seed` function from the `runSeed` function.
  This way we can isolate the error handling and exit trapping.

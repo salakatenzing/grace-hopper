@@ -7,8 +7,18 @@ module.exports = router;
 router.post('/login', async (req, res, next) => {
   try {
     res.send({ token: await User.authenticate(req.body) });
+    // console.log(res);
   } catch (err) {
     next(err);
+  }
+});
+router.post('/logout', async (req, res, next) => {
+  try {
+    res.clearCookie('token');
+    //localStorage.removeItem('token');
+    res.redirect('/login');
+  } catch (error) {
+    next(error);
   }
 });
 
