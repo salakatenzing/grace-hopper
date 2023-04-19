@@ -1,13 +1,8 @@
 import React from "react";
 
-const SingleProductDetail = () => {
+export default function SingleProductDetail() {
   return(
-    <>
-    {/* gonna have to figure out where I need to link this to instead of this button, most likely implemented into a different component? */}
-    {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
-      Click for product info
-    </button> */}
-
+  
     <div className="modal" id="productModal" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
@@ -38,8 +33,5 @@ const SingleProductDetail = () => {
         </div>
       </div>
     </div>
-    </>
   )
-}
-
-export default SingleProductDetail;
+};
