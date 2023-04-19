@@ -4,9 +4,9 @@ const SingleProductDetail = () => {
   return(
     <>
     {/* gonna have to figure out where I need to link this to instead of this button, most likely implemented into a different component? */}
-    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
+    {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
       Click for product info
-    </button>
+    </button> */}
 
     <div className="modal" id="productModal" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">
@@ -34,7 +34,6 @@ const SingleProductDetail = () => {
             <option value="6">6</option>
             </select>
             <button type="button" className="btn btn-primary">Add to Cart</button>
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
