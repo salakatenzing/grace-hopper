@@ -13,76 +13,110 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <h1>FS-App-Template</h1>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
-        {isLoggedIn ? (
-          <div className="container-fluid">
-            {/* The navbar will show these links after you log in */}
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
+    <nav
+      className="navbar navbar-expand-md navbar-light bg-light"
+      aria-label="navbar"
+    >
+      <div className="container-fluid">
+        <Link className="navbar-brand" aria-current="page" to="/">
+          <img
+            src="/images/Maverick.svg"
+            alt="image"
+            width="35"
+            className="me-2"
+          />
+        </Link>
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar"
+          aria-controls="navbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          className="collapse navbar-collapse justify-content-between"
+          id="navbar"
+        >
+          <ul className="navbar-nav  mb-2 mb-md-0">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Maverick Merchants
+              </Link>
+            </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Products
+              </a>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link className="dropdown-item" to="/products/produce">
+                    Produce
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/products/dairy-eggs">
+                    Dairy & Eggs
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/products/meat">
+                    Meat
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/products/dried-goods">
+                    Dried Goods
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/products/beverages">
+                    Beverages
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <form className="d-flex" role="search">
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button className="btn btn-outline-success" type="submit">
+              Search
             </button>
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <div className="row w-100">
-                <div className="col-md-4">
-                  <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
-                    <li className="nav-item">
-                      <Link to="/home">Home</Link>
-                    </li>
-                    <li className="nav-item dropdown">
-                      <button className="btn btn-body-tertiary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Products
-                      </button>
-                      <ul className="dropdown-menu dropdown-menu-body-tertiary">
-                        <li className="dropdown-item">
-                          <Link to="/products/produce">Produce</Link>
-                        </li>
-                        <li className="dropdown-item">
-                          <Link to="/products/meat">Meat</Link>
-                        </li>
-                        <li className="dropdown-item">
-                          <Link to="/products/dairy&eggs">Dairy & Eggs</Link>
-                        </li>
-                        <li className="dropdown-item">
-                          <Link to="/products/beverages">Beverages</Link>
-                        </li>
-                        <li className="dropdown-item">
-                          <Link to="/products/driedgoods">Dried Goods</Link>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-                <div className="col-md-4 d-flex justify-content-center">
-                  <form className="d-flex align-items-center search-form" role="search">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                  </form>
-                </div>
-                <div className="col-md-4 d-flex justify-content-end">
-                  <ul className="navbar-nav">
-                    <li className="nav-item">
-                      <Link to="/cart">Cart</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/login">Login</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/signup">Sign up</Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+          </form>
+          <div className="d-flex align-items-center">
+            <Link to="/cart">
+              <i className="bi bi-basket me-5 fs-3 text-secondary"></i>
+            </Link>
+
+            <Link to="/login">
+              <button type="button" className="btn btn-secondary me-1">
+                Login
+              </button>
+            </Link>
+            <Link to="/signup">
+              <button type="button" className="btn btn-primary ms-1">
+                Sign Up
+              </button>
+            </Link>
           </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-        )}
-      </nav>
-    </div>
+        </div>
+      </div>
+    </nav>
   );
 };
 
