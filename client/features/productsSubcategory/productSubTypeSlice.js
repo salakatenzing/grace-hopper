@@ -15,7 +15,7 @@ const productSubType = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
+    builder.addCase(fetchProductSubtype.fulfilled, (state, action) => {
       return action.payload
     })
   }
