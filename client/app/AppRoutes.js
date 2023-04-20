@@ -15,15 +15,17 @@ import { selectUser } from './store';
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  // const userObject = useSelector(selectUser);
+  // const userId = userObject.id;
 
   useEffect(() => {
     dispatch(me());
-    console.log(user);
   }, []);
+  const meData = useSelector((state) => state.auth.me);
 
   return (
     <div>
+      {console.log(meData)}
       {isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
