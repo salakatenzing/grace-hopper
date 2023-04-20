@@ -17,3 +17,26 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/:userId', async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findByPk(userId);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete('/:userId', async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).send("User doesn't exits!");
+    }
+    await user.destroy();
+  } catch (error) {
+    next(error);
+  }
+});

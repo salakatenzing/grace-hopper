@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
   Props htmlFor Login: name="login", displayName="Login"
   Props htmlFor Sign up: name="signup", displayName="Sign Up"
 **/
-
+//The name is the method of the for the server to use, this the method that the slice uses -> Tenzing Salaka
 const AuthForm = ({ name, displayName }) => {
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -16,9 +16,9 @@ const AuthForm = ({ name, displayName }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const formName = evt.target.name;
-    const username = evt.target.username.value;
+    const email = evt.target.email.value;
     const password = evt.target.password.value;
-    dispatch(authenticate({ username, password, method: formName }));
+    dispatch(authenticate({ email, password, method: formName }));
   };
   const handleNoAccount = () => {
     if (name === 'login') {
@@ -46,6 +46,7 @@ const AuthForm = ({ name, displayName }) => {
             type="email"
             className="form-control"
             id="floatingInput"
+            name="email"
             placeholder="name@example.com"
           />
           <label htmlFor="floatingInput">Email address</label>
@@ -55,6 +56,7 @@ const AuthForm = ({ name, displayName }) => {
             type="password"
             className="form-control"
             id="floatingPassword"
+            name="password"
             placeholder="Password"
           />
           <label htmlFor="floatingPassword">Password</label>
