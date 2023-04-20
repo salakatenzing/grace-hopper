@@ -1,7 +1,7 @@
 import React from "react";
 import SingleProductDetail from "../productDetail/SingleProductDetail";
 
-export default function ProductsSubcategory() {
+export default function ProductsSubTypeItems() {
 
   const dummyData = [    {name:  `Green Apple`, price: 0.35, description: `A sweet and crunchy fruit that comes in various colors`},
   {name:  `Banana`, price: 0.5, description: `A sweet and creamy fruit that comes in a yellow peel`},
