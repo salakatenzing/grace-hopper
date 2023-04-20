@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import CartItem from './CartItem';
 // import ShoppingCart from './ShoppingCart';
 // import Subtotal from './Subtotal';
@@ -8,7 +9,8 @@ export default function CartPage() {
     <div className="row g-5 w-50 m-auto">
       <div className="col-md-5 col-lg-4 order-md-last">
         <h4 className="d-flex justify-content-between align-items-center mb-3">
-          <span className="text-primary">Your cart</span>
+          <Link to="/fsadfsadf"><span className="text-primary">Your cart</span></Link>
+          {/* <span className="text-primary">Your cart</span> */}
           <span className="badge bg-primary rounded-pill">3</span>
         </h4>
         <ul className="list-group mb-3">
