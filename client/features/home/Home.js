@@ -1,17 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import Navbar from '../navbar/Navbar';
+import Promotions from '../promotions/Promotions';
+import ProductCards from '../productCards/ProductCards';
 
-/**
- * COMPONENT
- */
-const Home = (props) => {
-  const username = useSelector((state) => state.auth.me.username);
-
+const Home = () => {
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <Navbar />
+      <Promotions />
+      <ProductCards />
     </div>
   );
 };
+
 
 export default Home;
