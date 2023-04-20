@@ -14,11 +14,7 @@ export default function SingleProductDetail() {
   }, [dispatch])
   
   return(
-    <>
-    {/* <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button> */}
-    <div className={modal ? "modal" : undefined} id="productModal" tabIndex="-1" role="dialog">
+    <div className={"modal"} id="productModal" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
@@ -30,7 +26,7 @@ export default function SingleProductDetail() {
           <div className="modal-body">
             {/* most things in here will be replaced with actual info */}
             <img src={image} alt="product pic here" width="400px"/>
-            <h5>{price}</h5>
+            <h5>{price}/ea</h5>
             <h6>{per_unit}</h6>
             <p>{description}</p>
           </div>
@@ -48,6 +44,5 @@ export default function SingleProductDetail() {
         </div>
       </div>
     </div>
-    </>
   )
 };
