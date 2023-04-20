@@ -18,6 +18,7 @@ const AppRoutes = () => {
   const dispatch = useDispatch();
   // const userObject = useSelector(selectUser);
   // const userId = userObject.id;
+  console.log(isLoggedIn);
 
   useEffect(() => {
     dispatch(me());
