@@ -15,9 +15,10 @@ export const me = createAsyncThunk('auth/me', async () => {
     if (token) {
       const res = await axios.get('/auth/me', {
         headers: {
-          authorization: token,
+          Authorization: token,
         },
       });
+      console.log(`inside authSlics: ${JSON.stringify(res.data)}`);
       return res.data;
     } else {
       return {};
@@ -33,16 +34,17 @@ export const me = createAsyncThunk('auth/me', async () => {
 
 export const authenticate = createAsyncThunk(
   'auth/authenticate',
-  async ({ username, password, method }, thunkAPI) => {
+  async ({ email, password, method }, thunkAPI) => {
     try {
       const res = await axios.post(`/auth/${method}`, {
-        username,
+        email,
         password,
       });
       window.localStorage.setItem(TOKEN, res.data.token);
       thunkAPI.dispatch(me());
     } catch (err) {
       if (err.response.data) {
+        console.log(err.response.data);
         return thunkAPI.rejectWithValue(err.response.data);
       } else {
         return 'There was an issue with your request.';
@@ -84,6 +86,9 @@ export const authSlice = createSlice({
   ACTIONS
 */
 export const { logout } = authSlice.actions;
+export const selectUser = (state) => {
+  return state.auth;
+};
 
 /*
   REDUCER

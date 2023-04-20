@@ -12,15 +12,15 @@ router.post('/login', async (req, res, next) => {
     next(err);
   }
 });
-router.post('/logout', async (req, res, next) => {
-  try {
-    res.clearCookie('token');
-    //localStorage.removeItem('token');
-    res.redirect('/login');
-  } catch (error) {
-    next(error);
-  }
-});
+// router.post('/logout', async (req, res, next) => {
+//   try {
+//     res.clearCookie('token');
+//     //localStorage.removeItem('token');
+//     res.redirect('/login');
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 router.post('/signup', async (req, res, next) => {
   try {

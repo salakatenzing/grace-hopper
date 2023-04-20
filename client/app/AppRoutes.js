@@ -6,6 +6,7 @@ import Home from '../features/home/Home';
 import CartPage from '../features/Cart/CartPage';
 import AllProducts from '../features/products/AllProducts-Page';
 import { me } from './store';
+import { selectUser } from './store';
 
 /**
  * COMPONENT
@@ -14,9 +15,11 @@ import { me } from './store';
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(me());
+    console.log(user);
   }, []);
 
   return (

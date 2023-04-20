@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const SALT_ROUNDS = 5;
 
@@ -48,25 +49,27 @@ User.prototype.correctPassword = function (candidatePwd) {
 };
 
 User.prototype.generateToken = function () {
-  return jwt.sign({ id: this.id }, process.env.JWT);
+  console.log(this.id);
+  return jwt.sign({ id: this.id }, process.env.SECRET_KEY);
 };
 
 /**
  * classMethods
  */
-User.authenticate = async function ({ username, password }) {
-  const user = await this.findOne({ where: { username } });
+User.authenticate = async function ({ email, password }) {
+  const user = await this.findOne({ where: { email } });
   if (!user || !(await user.correctPassword(password))) {
     const error = Error('Incorrect username/password');
     error.status = 401;
     throw error;
   }
+
   return user.generateToken();
 };
 
 User.findByToken = async function (token) {
   try {
-    const { id } = await jwt.verify(token, process.env.JWT);
+    const { id } = await jwt.verify(token, process.env.SECRET_KEY);
     const user = User.findByPk(id);
     if (!user) {
       throw 'nooo';
