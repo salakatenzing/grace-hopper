@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SingleProductDetail() {
   return(
-  
+
     <div className="modal" id="productModal" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
@@ -15,7 +15,7 @@ export default function SingleProductDetail() {
           <div className="modal-body">
             {/* most things in here will be replaced with actual info */}
             <img src="https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg" alt="product pic here" width="400px"/>
-            <h5>$10/ea</h5>            
+            <h5>$10/ea</h5>
             <h6>$1000/lb</h6>
             <p>Item description here!! Carrots are apparently good for eyesight improvement.</p>
           </div>
