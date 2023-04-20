@@ -18,7 +18,7 @@ export const me = createAsyncThunk('auth/me', async () => {
           Authorization: token,
         },
       });
-      console.log(`inside authSlics: ${JSON.stringify(res.data)}`);
+      //   console.log(`inside authSlics: ${JSON.stringify(res.data)}`);
       return res.data;
     } else {
       return {};
