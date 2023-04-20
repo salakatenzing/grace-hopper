@@ -2,39 +2,45 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Products = db.define('products', {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
+  price: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    validate: {
+      min: 0,
     },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false,
+  },
+  stock_qty: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0,
     },
-    tag: {
-        type: Sequelize.STRING,
-        allowNull: false,
+  },
+  per_unit: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  image: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=',
+    validate: {
+      isUrl: true,
     },
-    description: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    price: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    weight: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-    },
-    stock_qty: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    per_unit: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
+  },
 });
 
 module.exports = Products;
