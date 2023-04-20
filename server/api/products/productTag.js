@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {
   models: { Product, ProductTag },
-} = require('../db');
+} = require('../../db');
 // const Product_Tag = require('../db/models/ProductTag');
 module.exports = router;
 
@@ -24,6 +24,7 @@ router.get('/mainType/:mainType', async (req, res, next) => {
 router.get('/subType/:subType', async (req, res, next) => {
   try {
     const subType = req.params.subType;
+    //req.body =
     try {
       const products = await ProductTag.findAll({
         where: { sub_type: subType },
