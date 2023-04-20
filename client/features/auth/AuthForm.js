@@ -4,9 +4,9 @@ import { authenticate } from '../../app/store';
 import { Link } from 'react-router-dom';
 
 /**
-  The AuthForm component can be used for Login or Sign Up.
-  Props for Login: name="login", displayName="Login"
-  Props for Sign up: name="signup", displayName="Sign Up"
+  The AuthForm component can be used htmlFor Login or Sign Up.
+  Props htmlFor Login: name="login", displayName="Login"
+  Props htmlFor Sign up: name="signup", displayName="Sign Up"
 **/
 
 const AuthForm = ({ name, displayName }) => {
@@ -23,74 +23,53 @@ const AuthForm = ({ name, displayName }) => {
   const handleNoAccount = () => {
     if (name === 'login') {
       return (
-        <>
-          <h3>Don't have an account?</h3>
-          <Link to="/signup">
-            <button type="submit" className="btn btn-primary rounded-pill">
-              Signup
-            </button>
-          </Link>
-        </>
+        <p className="text-secondary">
+          Don't have an {<Link to="/signup">account</Link>}?
+        </p>
       );
     } else {
       return (
-        <>
-          <h3>Already have an account?</h3>
-          <Link to="/login">
-            <button type="submit" className="btn btn-primary rounded-pill">
-              Login
-            </button>
-          </Link>
-        </>
+        <p className="text-secondary">
+          Already have an {<Link to="/login">account</Link>}?
+        </p>
       );
     }
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <form
-            className="p-4 rounded .bg-secondary.bg-gradient"
-            onSubmit={handleSubmit}
-            name={name}
-          >
-            <div className="form-group d-flex justify-content-between">
-              <label htmlFor="username" className="form-label">
-                Username
-              </label>
-              <input
-                type="text"
-                className="form-control rounded-pill"
-                id="username"
-                name="username"
-              />
-            </div>
-            <div className="form-group d-flex justify-content-between">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control rounded-pill"
-                id="password"
-                name="password"
-              />
-            </div>
-            <div className="d-flex justify-content-center flex-column align-items-center w-100">
-              <button
-                type="submit"
-                className="btn btn-primary rounded-pill my-3"
-              >
-                {displayName}
-              </button>
-              <div></div>
-              {handleNoAccount()}
-            </div>
-            {error && <div className="mt-3 text-danger">{error}</div>}
-          </form>
+    <div className="card mt-5 mb-5 m-auto p-4" style={{ width: '25rem' }}>
+      <form className="text-center" onSubmit={handleSubmit} name={name}>
+        <img className="mb-4" src="/images/Maverick.svg" alt="" width="72" />
+
+        <div className="form-floating mb-2">
+          <input
+            type="email"
+            className="form-control"
+            id="floatingInput"
+            placeholder="name@example.com"
+          />
+          <label htmlFor="floatingInput">Email address</label>
         </div>
-      </div>
+        <div className="form-floating mb-2">
+          <input
+            type="password"
+            className="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label htmlFor="floatingPassword">Password</label>
+        </div>
+
+        <div className="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me" /> Remember me
+          </label>
+        </div>
+        <button className="w-100 btn btn-lg btn-primary mb-3" type="submit">
+          {displayName}
+        </button>
+        {handleNoAccount()}
+      </form>
     </div>
   );
 };
