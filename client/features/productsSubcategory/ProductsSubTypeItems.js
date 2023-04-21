@@ -2,35 +2,39 @@ import React, { useEffect } from "react";
 import SingleProductDetail from "../productDetail/SingleProductDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductSubtype, selectProductSubtypeItems } from "./productSubTypeSlice";
-import { useParams } from "react-router";
+import { useLocation } from "react-router";
 
 export default function ProductsSubTypeItems() {
   const dispatch = useDispatch();
   const subTypeItems = useSelector(selectProductSubtypeItems)
-  const {subType} = useParams();
+  const location = useLocation();
+  const maintype = location.pathname.split('/')[2]
+  const subtype = location.pathname.split('/')[3]
 
   useEffect(() => {
-    dispatch(fetchProductSubtype(subType))
+    console.log('this is maintype and subtype respectively >>>', maintype, subtype)
+    dispatch(fetchProductSubtype({maintype, subtype}))
   }, [dispatch])
 
   return (
     <div>
-      <h1>{subType}</h1>
+      <h1>{subtype}</h1>
       <hr />
       <div className="row">
       {subTypeItems.map((product) => {
+        console.log(product)
         return(
           <>
-          <div className="col-sm-3" key={product.id}>
+          <div className="col-sm-3" key={product.product.id}>
             <div className="card" style={{width: "18rem"}} data-bs-toggle="modal" data-bs-target="#productModal">
-              <img className="card-img-top" src={product.image} alt="Card image cap" width="16rem"/>
+              <img className="card-img-top" src={product.product.image} alt="Card image cap" width="16rem"/>
               <div className="card-body">
-                <h5 className="card-title">{product.name}</h5>
-                <p>{product.price}/ea.</p>
-                <p className="card-text">{product.description}</p>
+                <h5 className="card-title">{product.product.name}</h5>
+                <p>{product.product.price}/ea.</p>
+                <p className="card-text">{product.product.description}</p>
                 <a href="#" className="btn btn-primary">Add to Cart</a>
               </div>
-            <SingleProductDetail productId={product.id}/>
+            <SingleProductDetail productId={product.product.id}/>
             </div>
           </div>
           </>
