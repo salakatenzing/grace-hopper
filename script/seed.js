@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use strict';
 const productList = require('./products');
 const productTagList = require('./product_tag');
@@ -48,11 +49,38 @@ async function seed() {
         sub_type: productTag.sub_type,
       });
       await product.addProduct_tag(newTag);
-      // return newTag;
+      return newTag;
     })
   );
 
-  // console.log(productTags); // logs an array of the newly created ProductTag objects
+  // Creating Product List
+  const order = await Order.create({
+    completion: false,
+    userId: 1,
+  });
+
+  const orderItems = await Promise.all([
+    OrderItems.create({
+      quantity: 3,
+      orderId: 1,
+      productId: 5,
+    }),
+    OrderItems.create({
+      quantity: 2,
+      orderId: 1,
+      productId: 12,
+    }),
+    OrderItems.create({
+      quantity: 2,
+      orderId: 1,
+      productId: 49,
+    }),
+    OrderItems.create({
+      quantity: 1,
+      orderId: 1,
+      productId: 63,
+    }),
+  ]);
 
   console.log(`seeded ${user.length} user`);
   console.log(`seeded successfully`);
@@ -64,7 +92,7 @@ async function seed() {
     },
   };
 }
-// console.log(Order.prototype);
+// console.log(Product.prototype);
 /*
  We've separated the `seed` function from the `runSeed` function.
  This way we can isolate the error handling and exit trapping.
