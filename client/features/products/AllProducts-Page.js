@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
 import SingleProduct from './SingleProduct';
 import SimpleSingleItem from './SimpleSingleItem';
+import { fetchAllProducts, fetchMainCategory, selectAllProducts } from './allProductsSlice';
 import 'react-multi-carousel/lib/styles.css';
 import { v4 as uuidv4 } from 'uuid';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { useParams, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, Link, useLocation } from 'react-router-dom';
 
-// import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+
 
 const dummyData = [
   {
@@ -66,6 +67,19 @@ export default function AllProducts() {
       items: 1,
     },
   };
+  const dispatch = useDispatch()
+  const location = useLocation()
+
+  const allProducts = useSelector(selectAllProducts)
+  console.log(allProducts)
+
+  useEffect(() => {
+    const mainCategory = location.pathname.split('/')[2]
+    console.log('This is my category', mainCategory)
+    dispatch(fetchMainCategory(mainCategory))
+  }, [dispatch])
+
+
   return (
     <div className="p-5">
       <h2>Suggestions</h2>
@@ -76,7 +90,7 @@ export default function AllProducts() {
         autoPlay={true}
         autoPlaySpeed={6000}
       >
-        {dummyData.map((product) => (
+        {allProducts && allProducts.map((product) => (
           <SimpleSingleItem key={uuidv4()} product={product} />
         ))}
       </Carousel>
@@ -88,7 +102,7 @@ export default function AllProducts() {
         autoPlay={true}
         autoPlaySpeed={10000}
       >
-        {dummyData.map((product) => (
+        {allProducts && allProducts.map((product) => (
           <SingleProduct key={uuidv4()} product={product} />
         ))}
       </Carousel>
@@ -99,31 +113,10 @@ export default function AllProducts() {
         autoPlay={true}
         autoPlaySpeed={10500}
       >
-        {dummyData.map((product) => (
+        {allProducts && allProducts.map((product) => (
           <SingleProduct key={uuidv4()} product={product} />
         ))}
       </Carousel>
     </div>
   );
-}
-
-{
-  /* <div className="fruits d-flex justify-content-center">
-<span className=" border border-dark bg-light rounded w-25 p-3 d-flex justify-content-center">
-  <div>
-    <img
-      src="https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg"
-      alt="product pic here"
-      width="200px"
-      height="170px"
-      className="rounded"
-    />
-    <h5 className="text-dark">Carrots</h5>
-    <h6>$1000/lb</h6>
-    <button type="button" className="btn btn-primary">
-      Add to Cart
-    </button>
-  </div>
-</span>
-</div> */
 }

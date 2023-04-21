@@ -18,16 +18,25 @@ const AuthForm = ({ name, displayName }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const formName = evt.target.name;
-    const email = evt.target.email.value;
-    const password = evt.target.password.value;
-    const firstName = evt.target.firstName.value;
-    const lastName = evt.target.firstName.value;
-    console.log(`firstNAme: ${firstName}, lastName:${lastName}`);
-    dispatch(
-      authenticate({ email, password, method: formName, firstName, lastName })
-    );
-    navigate('/', { replace: true });
+    if (name === 'signup') {
+      const formName = evt.target.name;
+      const email = evt.target.email.value;
+      const password = evt.target.password.value;
+      const firstName = evt.target.firstName.value;
+      const lastName = evt.target.firstName.value;
+      dispatch(
+        authenticate({ email, password, method: formName, firstName, lastName })
+      );
+      navigate('/', { replace: true });
+    } else if (name === 'login') {
+      const formName = evt.target.name;
+      const email = evt.target.email.value;
+      const password = evt.target.password.value;
+      dispatch(authenticate({ email, password, method: formName }));
+      navigate('/', { replace: true });
+    }
+
+    // console.log(`firstNAme: ${firstName}, lastName:${lastName}`);
   };
   const handleNoAccount = () => {
     if (name === 'login') {
