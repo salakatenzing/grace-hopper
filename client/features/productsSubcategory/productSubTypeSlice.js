@@ -5,8 +5,9 @@ export const fetchProductSubtype = createAsyncThunk(
   '/products/productSubType', 
   async(subType) => {
   try {
-    const {data} = await axios.get(`/api/productTag/subType/${subType}`)
-    return data
+    const {data} = await axios.get(`/api/products`)
+    console.log("data in thunk >>", data.filter((product) => product.name === 'Green Apple'))
+    return data.filter((product) => product.product_tags[0].sub_type === subType)
   } catch(err) {
     console.log(err)
   }

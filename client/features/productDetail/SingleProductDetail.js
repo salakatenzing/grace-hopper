@@ -3,9 +3,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {selectSingleProduct, fetchSingleProduct} from './singleProductSlice'
 import {useParams} from "react-router-dom";
 
-export default function SingleProductDetail() {
+export default function SingleProductDetail({productId}) {
   const dispatch = useDispatch()
-  const {productId} = useParams();
   const singleItem = useSelector(selectSingleProduct)
   const { name, description, price, per_unit, image} = singleItem;
 
