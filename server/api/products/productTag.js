@@ -7,14 +7,13 @@ module.exports = router;
 
 router.get('/maintype/:maintype', async (req, res, next) => {
   try {
-    console.log('im in the backend')
+    console.log('im in the backend');
     const maintype = req.params.maintype;
-    console.log('Here is my mainType', maintype)
+    console.log('Here is my mainType', maintype);
     const products = await ProductTag.findAll({
       where: { main_type: maintype },
       include: [Product],
     });
-    console.log('This is', products)
     res.status(200).send(products);
   } catch (error) {
     res.status(403).send('Product Type does not exist!');
