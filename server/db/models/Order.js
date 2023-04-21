@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const Sequelize = require('sequelize');
 const db = require('../db');
 const Order = db.define('order', {
