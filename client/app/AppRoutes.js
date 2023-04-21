@@ -8,6 +8,7 @@ import AllProducts from '../features/products/AllProducts-Page';
 import NotFoundPage from '../features/NotFoundPage/NotFoundPage';
 import { me } from './store';
 import { selectUser } from './store';
+import ProductsSubTypeItems from '../features/productsSubcategory/ProductsSubTypeItems';
 
 /**
  * COMPONENT
@@ -35,6 +36,7 @@ const AppRoutes = () => {
           <Route path="/products/meat" element={<AllProducts />} />
           <Route path="/products/dried-goods" element={<AllProducts />} />
           <Route path="/products/beverages" element={<AllProducts />} />
+          <Route path="/products/:maintype/:subtype" element={<ProductsSubTypeItems />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
@@ -46,6 +48,7 @@ const AppRoutes = () => {
           <Route path="/products/meat" element={<AllProducts />} />
           <Route path="/products/dried-goods" element={<AllProducts />} />
           <Route path="/products/beverages" element={<AllProducts />} />
+          <Route path="/products/:maintype/:subtype" element={<ProductsSubTypeItems />} />
           <Route path="/cart" element={<CartPage />} />
           <Route
             path="/login"
