@@ -21,9 +21,7 @@ export default function ProductsSubTypeItems() {
       <hr />
       <div className="row">
       {subTypeItems.map((product) => {
-        console.log(product)
         return(
-          <>
           <div className="col-sm-3" key={product.product.id}>
             <div className="card" style={{width: "18rem"}} data-bs-toggle="modal" data-bs-target="#productModal">
               <img className="card-img-top" src={product.product.image} alt="Card image cap" width="16rem"/>
@@ -36,7 +34,6 @@ export default function ProductsSubTypeItems() {
             <SingleProductDetail product={product.product}/>
             </div>
           </div>
-          </>
         )
       })}
       </div>

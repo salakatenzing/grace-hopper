@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import {selectSingleProduct, fetchSingleProduct} from './singleProductSlice'
 
 export default function SingleProductDetail({product}) {
   const dispatch = useDispatch()
   const singleItem = useSelector(selectSingleProduct)
-  const { name, description, price, per_unit, image} = singleItem;
+  const { id, name, description, price, per_unit, image} = singleItem;
+  const [currentProduct, setNewProduct] = useState('')
 
   useEffect(() => {
-    dispatch(fetchSingleProduct(product.id))
-  }, [dispatch])
+    // dispatch(fetchSingleProduct(productId))
+    setNewProduct(product)
+  }, [product])
   
+  console.log(currentProduct)
   return(
     <div className={"modal"} id="productModal" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">
@@ -26,7 +29,7 @@ export default function SingleProductDetail({product}) {
             <h5>{price}/ea</h5>
             <h6>{per_unit}</h6>
             <p>{description}</p>
-            <p>this is the product id {product.id}</p>
+            <p>this is the product {JSON.stringify(currentProduct)}</p>
           </div>
           <div className="modal-footer">
             <select name="qty" id="qty">
