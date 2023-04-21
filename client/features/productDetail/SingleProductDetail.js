@@ -23,7 +23,6 @@ export default function SingleProductDetail({productId}) {
             </button>
           </div>
           <div className="modal-body">
-            {/* most things in here will be replaced with actual info */}
             <img src={image} alt="product pic here" width="400px"/>
             <h5>{price}/ea</h5>
             <h6>{per_unit}</h6>
