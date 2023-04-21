@@ -1,14 +1,14 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-
+//this is a comment
 const Product_Tag = db.define('product_tag', {
   main_type: {
     type: Sequelize.ENUM(
       'produce',
       'meat',
-      'dairy & eggs',
+      'dairy-eggs',
       'beverages',
-      'dried goods'
+      'dried-goods'
     ),
     allowNull: false,
   },
@@ -31,7 +31,7 @@ const Product_Tag = db.define('product_tag', {
       'yogurt',
       'butter',
       'grains',
-      'canned goods',
+      'canned-goods',
       'pasta',
       'other'
     ),
