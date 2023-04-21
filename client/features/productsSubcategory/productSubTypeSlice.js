@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchProductSubtype = createAsyncThunk('/products/productSubType', async() => {
+export const fetchProductSubtype = createAsyncThunk(
+  '/products/productSubType', 
+  async(subType) => {
   try {
-    const {data} = await axios.get()
+    const {data} = await axios.get(`/api/productTag/subType/${subType}`)
     return data
   } catch(err) {
     console.log(err)
