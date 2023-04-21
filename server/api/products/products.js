@@ -4,7 +4,7 @@ const {
 } = require('../../db');
 // const Product_Tag = require('../db/models/ProductTag');
 module.exports = router;
-
+//route is /api/products for the following routes
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({

@@ -34,7 +34,8 @@ app.use((req, res, next) => {
 
 // sends index.html
 app.use('*', (req, res) => {
-  res.status(404).send('Not a valid url');
+  // res.status(404).send('Not a valid url');
+  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
 // error handling endware

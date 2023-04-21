@@ -48,11 +48,11 @@ async function seed() {
         sub_type: productTag.sub_type,
       });
       await product.addProduct_tag(newTag);
-      return newTag;
+      // return newTag;
     })
   );
 
-  console.log(productTags); // logs an array of the newly created ProductTag objects
+  // console.log(productTags); // logs an array of the newly created ProductTag objects
 
   console.log(`seeded ${user.length} user`);
   console.log(`seeded successfully`);
@@ -64,7 +64,7 @@ async function seed() {
     },
   };
 }
-// console.log(Product.prototype);
+// console.log(Order.prototype);
 /*
  We've separated the `seed` function from the `runSeed` function.
  This way we can isolate the error handling and exit trapping.
