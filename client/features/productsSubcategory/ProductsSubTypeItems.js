@@ -12,7 +12,6 @@ export default function ProductsSubTypeItems() {
   const subtype = location.pathname.split('/')[3]
 
   useEffect(() => {
-    console.log('this is maintype and subtype respectively >>>', maintype, subtype)
     dispatch(fetchProductSubtype({maintype, subtype}))
   }, [dispatch])
 
@@ -34,7 +33,7 @@ export default function ProductsSubTypeItems() {
                 <p className="card-text">{product.product.description}</p>
                 <a href="#" className="btn btn-primary">Add to Cart</a>
               </div>
-            <SingleProductDetail productId={product.product.id}/>
+            <SingleProductDetail product={product.product}/>
             </div>
           </div>
           </>
