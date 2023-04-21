@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function PromoRedeem() {
   return (
-    <form class="card p-2">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Promo code" />
-        <button type="submit" class="btn btn-secondary">
+    <form className="card p-2">
+      <div className="input-group">
+        <input type="text" className="form-control" placeholder="Promo code" />
+        <button type="submit" className="btn btn-secondary">
           Redeem
         </button>
       </div>
