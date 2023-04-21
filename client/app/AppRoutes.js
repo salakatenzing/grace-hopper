@@ -16,9 +16,8 @@ import { selectUser } from './store';
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
-  // const userObject = useSelector(selectUser);
-  // const userId = userObject.id;
-  console.log(isLoggedIn);
+  const userObject = useSelector(selectUser);
+  const userId = userObject.id;
 
   useEffect(() => {
     dispatch(me());
