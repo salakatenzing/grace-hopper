@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-
+//this is a comment
 const Product_Tag = db.define('product_tag', {
   main_type: {
     type: Sequelize.ENUM(
