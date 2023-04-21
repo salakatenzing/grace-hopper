@@ -8,7 +8,7 @@ const Product_Tag = db.define('product_tag', {
       'meat',
       'dairy & eggs',
       'beverages',
-      'dried Goods'
+      'dried goods'
     ),
     allowNull: false,
   },
