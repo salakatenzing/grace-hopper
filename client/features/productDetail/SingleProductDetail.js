@@ -25,14 +25,7 @@ export default function SingleProductDetail({product}) {
             <p>{product.description}</p>
           </div>
           <div className="modal-footer">
-            <select name="qty" id="qty">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            </select>
+            <input type="number" name="quantity" min="1" max={product.stock_qty} style={{width: "50px"}}/>
             <button type="button" className="btn btn-primary">Add to Cart</button>
           </div>
         </div>
