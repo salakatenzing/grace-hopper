@@ -1,35 +1,28 @@
 import React, { useEffect, useState } from "react";
-import {useSelector, useDispatch} from 'react-redux';
-import {selectSingleProduct, fetchSingleProduct} from './singleProductSlice'
+
 
 export default function SingleProductDetail({product}) {
-  const dispatch = useDispatch()
-  const singleItem = useSelector(selectSingleProduct)
-  const { id, name, description, price, per_unit, image} = singleItem;
-  const [currentProduct, setNewProduct] = useState('')
+  const [currentProduct, setCurrentProduct] = useState({})
 
   useEffect(() => {
-    // dispatch(fetchSingleProduct(productId))
-    setNewProduct(product)
-  }, [product])
-  
-  console.log(currentProduct)
+    setCurrentProduct(product)
+  }, [])
+
   return(
-    <div className={"modal"} id="productModal" tabIndex="-1" role="dialog">
+    <div key={currentProduct.id} className="modal" id="productModal" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{name}</h5>
+            <h5 className="modal-title">{product.name}</h5>
             <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div className="modal-body">
-            <img src={image} alt="product pic here" width="400px"/>
-            <h5>{price}/ea</h5>
-            <h6>{per_unit}</h6>
-            <p>{description}</p>
-            <p>this is the product {JSON.stringify(currentProduct)}</p>
+            <img src={product.image} alt="product pic here" width="400px"/>
+            <h5>{product.price}/ea</h5>
+            <h6>{product.per_unit}</h6>
+            <p>{product.description}</p>
           </div>
           <div className="modal-footer">
             <select name="qty" id="qty">
