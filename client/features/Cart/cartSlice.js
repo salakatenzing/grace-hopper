@@ -15,13 +15,17 @@ export const fetchCart = createAsyncThunk('/cart/cartItems', async (token) => {
 });
 export const addToCart = createAsyncThunk(
   '/cart/addToCart',
-  async (item, token) => {
+  async (quantity, productId, token) => {
     try {
-      const { data } = await axios.post('/api/add-to-order', item, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const { data } = await axios.post(
+        '/api/add-to-order',
+        { quantity, productId },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
       return data;
     } catch (err) {
       console.log(err);
