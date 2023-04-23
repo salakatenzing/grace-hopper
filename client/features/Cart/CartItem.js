@@ -1,13 +1,15 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
-export default function CartItem() {
+export default function CartItem({ item }) {
   return (
     <li className="list-group-item d-flex justify-content-between lh-sm">
       <div>
-        <h6 className="my-0">Product name</h6>
-        <small className="text-body-secondary">Brief description</small>
+        {console.log('this is the item!: ', item)}
+        <h6 className="my-0">{item.id}</h6>
+        <small className="text-body-secondary">Qty: {item.quantity}</small>
       </div>
-      <span className="text-body-secondary">$12</span>
+      <span className="text-body-secondary">${item.quantity * 1.99}</span>
     </li>
   );
 }
