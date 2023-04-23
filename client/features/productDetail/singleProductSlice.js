@@ -3,9 +3,9 @@ import axios from 'axios';
 
 export const fetchSingleProduct = createAsyncThunk(
   '/products/fetchOne',
-  async (product) => {
+  async (productId) => {
     try {
-      const { data } = await axios.get(`/api/products/${product}`);
+      const { data } = await axios.get(`/api/products/${productId}`);
       return data;
     } catch (err) {
       console.log(err);
