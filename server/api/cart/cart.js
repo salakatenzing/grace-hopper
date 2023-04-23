@@ -32,7 +32,8 @@ const authenticateUser = async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     const tokenInHeader = req.headers.authorization.split(' ');
-    const token = tokenInHeader[1];
+    //THIS WAS ORIGINALLY 1, I CHANGED IT
+    const token = tokenInHeader[0];
     //verify this JWT
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = extractedToken.id;
@@ -117,7 +118,7 @@ router.delete('/:orderId', async (req, res, next) => {
 router.post('/add-to-order', async (req, res, next) => {
   try {
     const tokenInHeader = req.headers.authorization.split(' ');
-    const token = tokenInHeader[1];
+    const token = tokenInHeader[0];
     //verify this JWT
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = extractedToken.id;
