@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../Cart/cartSlice";
 
 
 export default function SingleProductDetail({product}) {
+  const dispatch = useDispatch()
   const [currentProduct, setCurrentProduct] = useState({})
+  const [quantity, setQuantity] = useState(1)
+  const [productId, setProductId] = useState()
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('this is in the submit function thingy')
+  
+    dispatch(addToCart(quantity, productId, window.localStorage.getItem('token')))    
+    setQuantity(1)
+  }
 
   useEffect(() => {
     setCurrentProduct(product)
@@ -25,9 +38,10 @@ export default function SingleProductDetail({product}) {
             <p><small>Stock Qty: {product.stock_qty}</small></p>
             <p>{product.description}</p>
           </div>
-          <div className="modal-footer">
-            <input type="number" name="quantity" min="1" max={product.stock_qty} style={{width: "50px"}}/>
-            <button type="button" className="btn btn-primary">Add to Cart</button>
+          <div className="modal-footer" >
+            <input type="number" name="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} min="1" max={product.stock_qty} style={{width: "50px"}}/>
+            {console.log(quantity)}
+            <button type="submit" className="btn btn-primary" onClick={handleSubmit} >Add to Cart</button>
           </div>
         </div>
       </div>
