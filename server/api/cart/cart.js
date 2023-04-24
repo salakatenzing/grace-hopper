@@ -31,9 +31,8 @@ const authenticateUser = async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const tokenInHeader = req.headers.authorization.split(' ');
-    //THIS WAS ORIGINALLY 1, I CHANGED IT
-    const token = tokenInHeader[0];
+    const token = req.headers.authorization;
+
     //verify this JWT
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = extractedToken.id;
@@ -41,8 +40,14 @@ router.get('/', async (req, res, next) => {
       where: { userId: userId, completion: false },
       include: [OrderItems],
     });
+    const orderItems = await OrderItems.findAll({
+      where: { orderId: 1 },
+      include: [Product],
+    });
+    console.log('HERE! ', JSON.stringify(orderItems));
     res.status(200).send(openOrder);
   } catch (error) {
+    console.log('oh oh!', error);
     next(error);
   }
 });
