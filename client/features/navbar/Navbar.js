@@ -98,22 +98,27 @@ const Navbar = () => {
               Search
             </button>
           </form>
-          <div className="d-flex align-items-center">
-            <Link to="/cart">
-              <i className="bi bi-basket me-5 fs-3 text-secondary"></i>
-            </Link>
-
-            <Link to="/login">
-              <button type="button" className="btn btn-secondary me-1">
-                Login
-              </button>
-            </Link>
-            <Link to="/signup">
-              <button type="button" className="btn btn-primary ms-1">
-                Sign Up
-              </button>
-            </Link>
-          </div>
+          {isLoggedIn ? (
+            <div>
+              <Link to="/cart">
+                <i className="bi bi-basket me-5 fs-3 text-secondary"></i>
+              </Link>
+              <i className="bi bi-person-circle fs-3 text"></i>
+            </div>
+          ) : (
+            <div className="d-flex align-items-center">
+              <Link to="/login">
+                <button type="button" className="btn btn-secondary me-1">
+                  Login
+                </button>
+              </Link>
+              <Link to="/signup">
+                <button type="button" className="btn btn-primary ms-1">
+                  Sign Up
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
