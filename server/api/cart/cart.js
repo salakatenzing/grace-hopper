@@ -12,22 +12,22 @@ module.exports = router;
 // middleware to authenticate user via JWT token
 
 //talk with team, the following is a idea to implement a middleware inside routes
-const authenticateUser = async (req, res, next) => {
-  try {
-    //the following will have a http authentication called Bearer as first element in the array
-    //the second element will be the JWT token.
-    const bearAndToken = req.headers.authorization.split(' ');
-    //this grabs the JWT token
-    const token = bearAndToken[1];
-    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-    const userId = decodedToken.id;
-    const user = await User.findByPk(userId);
-    req.user = user;
-    next();
-  } catch (error) {
-    res.status(401).send('User not authenticated');
-  }
-};
+// const authenticateUser = async (req, res, next) => {
+//   try {
+//     //the following will have a http authentication called Bearer as first element in the array
+//     //the second element will be the JWT token.
+//     const bearAndToken = req.headers.authorization.split(' ');
+//     //this grabs the JWT token
+//     const token = bearAndToken[1];
+//     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+//     const userId = decodedToken.id;
+//     const user = await User.findByPk(userId);
+//     req.user = user;
+//     next();
+//   } catch (error) {
+//     res.status(401).send('User not authenticated');
+//   }
+// };
 
 router.get('/', async (req, res, next) => {
   try {
@@ -38,13 +38,9 @@ router.get('/', async (req, res, next) => {
     const userId = extractedToken.id;
     const openOrder = await Order.findOne({
       where: { userId: userId, completion: false },
-      include: [OrderItems],
+      include: [{ model: OrderItems, include: [Product] }],
     });
-    const orderItems = await OrderItems.findAll({
-      where: { orderId: 1 },
-      include: [Product],
-    });
-    console.log('HERE! ', JSON.stringify(orderItems));
+
     res.status(200).send(openOrder);
   } catch (error) {
     console.log('oh oh!', error);
@@ -151,31 +147,28 @@ router.post('/add-to-order', async (req, res, next) => {
 });
 router.put('/', async (req, res, next) => {
   try {
-    const tokenInHeader = req.headers.authorization.split(' ');
-    const token = tokenInHeader[1];
+    const token = req.headers.authorization;
     //verify this JWT
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = extractedToken.id;
 
-    const { quantity, productId } = req.body;
-    //the following grabs the order Object
-    const openOrder = await Order.findOne({
-      where: { userId: userId, completion: false },
-    });
-    //error handler if order doesn't exist
-    if (!openOrder) {
-      return res.status(400).json({ message: 'No open order exists.' });
-    }
+    const quantity = 2;
+    const productId = 23;
+    // const { quantity, productId } = req.body;
 
-    const orderItem = await OrderItems.findOne({
-      where: { orderId: openOrder.id, productId: productId },
+    const openOrder = await Order.findOrCreate({
+      where: { userId: 2, completion: false },
     });
 
-    if (!orderItem) {
-      return res.status(404).json({ message: 'Order item not found.' });
-    }
+    const orderItem = await OrderItems.findOrCreate({
+      where: { orderId: openOrder[0].dataValues.id, productId: productId },
+      defaults: {
+        quantity,
+      },
+    });
 
-    await orderItem.update({ quantity: quantity });
+    console.log('WHAT IS THIS??? ', orderItem);
+    await orderItem[0].update({ quantity: orderItem[0].quantity + quantity });
 
     res.status(200).json({ message: 'Order updated successfully.' });
   } catch (err) {
