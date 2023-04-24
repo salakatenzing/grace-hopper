@@ -12,7 +12,7 @@ export default function SingleProductDetail({product}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('this is in the submit function thingy')
-  
+    setProductId(currentProduct.id)
     dispatch(addToCart(quantity, productId, window.localStorage.getItem('token')))    
     setQuantity(1)
   }
