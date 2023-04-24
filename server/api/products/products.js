@@ -38,22 +38,30 @@ router.get('/:productId', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res) => {
-  const { name, description, price, stock_qty, per_unit, main_type, sub_type } =
-    req.body;
+router.post('/', async (req, res, next) => {
   try {
+    console.log('what up backend', req.body);
     const newProduct = await Product.create({
-      name: name,
-      description: description,
-      price: price,
-      stock_qty: stock_qty,
-      per_unit: per_unit,
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      stock_qty: req.body.stock_qty,
+      per_unit: req.body.per_unit,
     });
 
-    const newTag = await ProductTag.create({ main_type, sub_type });
+    const newTag = await ProductTag.create({
+      main_type: req.body.type,
+      sub_type: req.body.subType,
+    });
     await newProduct.addProduct_tag(newTag);
-    res.send(newProduct);
+    const productWithTag = await Product.findOne({
+      where: { id: newProduct.id },
+      include: [ProductTag],
+    });
+    console.log('axios call:', productWithTag);
+    res.send(productWithTag);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 });
