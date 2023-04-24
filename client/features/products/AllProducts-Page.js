@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import SingleProduct from './SingleProduct';
 import SimpleSingleItem from './SimpleSingleItem';
@@ -8,45 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, useLocation } from 'react-router-dom';
 
-
-
-const dummyData = [
-  {
-    name: 'Carrot',
-    img: 'https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg',
-    price: 0.99,
-  },
-  {
-    name: 'Carrot',
-    img: 'https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg',
-    price: 0.99,
-  },
-  {
-    name: 'Carrot',
-    img: 'https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg',
-    price: 0.99,
-  },
-  {
-    name: 'Carrot',
-    img: 'https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg',
-    price: 0.99,
-  },
-  {
-    name: 'Carrot',
-    img: 'https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg',
-    price: 0.99,
-  },
-  {
-    name: 'Carrot',
-    img: 'https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg',
-    price: 0.99,
-  },
-  {
-    name: 'Carrot',
-    img: 'https://www.freshpoint.com/wp-content/uploads/commodity-carrot.jpg',
-    price: 0.99,
-  },
-];
 
 export default function AllProducts() {
   const responsive = {
@@ -69,15 +30,36 @@ export default function AllProducts() {
   };
   const dispatch = useDispatch()
   const location = useLocation()
+  const [subTypes, setSubTypes] = useState([])
 
   const allProducts = useSelector(selectAllProducts)
-  console.log(allProducts)
+  const mainCategory = location.pathname.split('/')[2]
 
   useEffect(() => {
-    const mainCategory = location.pathname.split('/')[2]
-    console.log('This is my category', mainCategory)
-    dispatch(fetchMainCategory(mainCategory))
+    switch(mainCategory){
+      case 'produce':
+        setSubTypes(['fruit', 'vegetable', 'other'])
+        break
+      case 'meat':
+        setSubTypes(['seafood', 'pork', 'poultry', 'beef', 'other'])
+        break
+      case 'dairy-eggs':
+        setSubTypes(['milk', 'eggs', 'cheese', 'yogurt', 'butter', 'other'])
+        break;
+      case 'beverages':
+        setSubTypes(['water', 'soda', 'coffee', 'tea', 'juice', 'other'])
+        break;
+      case 'dried-goods':
+        setSubTypes(['grains', 'canned-goods', 'pasta', 'other'])
+        break;
+      default:
+        return
+      }
+      dispatch(fetchMainCategory(mainCategory))
   }, [dispatch])
+
+  console.log('THIS IS SUBTYPE', subTypes)
+
 
 
   return (
@@ -90,33 +72,34 @@ export default function AllProducts() {
         autoPlay={true}
         autoPlaySpeed={6000}
       >
-        {allProducts && allProducts.map((product) => (
-          <SimpleSingleItem key={uuidv4()} product={product} />
+        {allProducts && allProducts
+        .map((product) => (
+          <SimpleSingleItem key={uuidv4()} product={product.product} />
         ))}
       </Carousel>
 
-      <h2 className="mt-5">Fruits</h2>
-      <Carousel
-        responsive={responsive}
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={10000}
-      >
-        {allProducts && allProducts.map((product) => (
-          <SingleProduct key={uuidv4()} product={product} />
-        ))}
-      </Carousel>
-      <h2 className="mt-5">Vegetables</h2>
-      <Carousel
-        responsive={responsive}
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={10500}
-      >
-        {allProducts && allProducts.map((product) => (
-          <SingleProduct key={uuidv4()} product={product} />
-        ))}
-      </Carousel>
+      {subTypes && subTypes.map((title)=> {
+        return (
+          <>
+          <Link to={`/products/${mainCategory}/${title}`}><h2 key={uuidv4()} className="mt-5">{title}</h2></Link>
+          <Carousel
+          responsive={responsive}
+          infinite={true}
+          autoPlay={true}
+          autoPlaySpeed={10000}
+        >
+          {allProducts && allProducts
+          .filter((product)=> {
+            console.log("Product in filter", product)
+            return (product.sub_type === title)
+          })
+          .map((product) => (
+            <SingleProduct key={uuidv4()} product={product.product} />
+          ))}
+        </Carousel>
+        </>
+        )
+      })}
     </div>
   );
 }
