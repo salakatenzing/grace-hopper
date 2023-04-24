@@ -148,16 +148,17 @@ router.post('/add-to-order', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    //verify this JWT
+
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = extractedToken.id;
 
-    const quantity = 2;
-    const productId = 23;
-    // const { quantity, productId } = req.body;
+    const { quantity, productId } = req.body;
 
     const openOrder = await Order.findOrCreate({
-      where: { userId: 2, completion: false },
+      where: { userId: userId, completion: false },
+      defaults: {
+        completion: false,
+      },
     });
 
     const orderItem = await OrderItems.findOrCreate({
@@ -166,8 +167,6 @@ router.put('/', async (req, res, next) => {
         quantity,
       },
     });
-
-    console.log('WHAT IS THIS??? ', orderItem);
     await orderItem[0].update({ quantity: orderItem[0].quantity + quantity });
 
     res.status(200).json({ message: 'Order updated successfully.' });
