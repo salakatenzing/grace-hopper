@@ -22,6 +22,7 @@ export default function SingleProductDetail({product}) {
             <img src={product.image} alt="product pic here" width="400px"/>
             <h5>{product.price}/ea</h5>
             <h6>{product.per_unit}</h6>
+            <p><small>Stock Qty: {product.stock_qty}</small></p>
             <p>{product.description}</p>
           </div>
           <div className="modal-footer">
