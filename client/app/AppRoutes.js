@@ -8,7 +8,9 @@ import AllProducts from '../features/products/AllProducts-Page';
 import NotFoundPage from '../features/NotFoundPage/NotFoundPage';
 import { me } from './store';
 import { selectUser } from './store';
+import UserPage from '../features/UserPage/UserPage';
 import ProductsSubTypeItems from '../features/productsSubcategory/ProductsSubTypeItems';
+import Admin from '../features/admin/Admin';
 
 /**
  * COMPONENT
@@ -36,8 +38,13 @@ const AppRoutes = () => {
           <Route path="/products/meat" element={<AllProducts />} />
           <Route path="/products/dried-goods" element={<AllProducts />} />
           <Route path="/products/beverages" element={<AllProducts />} />
-          <Route path="/products/:maintype/:subtype" element={<ProductsSubTypeItems />} />
+          <Route
+            path="/products/:maintype/:subtype"
+            element={<ProductsSubTypeItems />}
+          />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/user-page" element={<UserPage />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       ) : (
@@ -48,7 +55,10 @@ const AppRoutes = () => {
           <Route path="/products/meat" element={<AllProducts />} />
           <Route path="/products/dried-goods" element={<AllProducts />} />
           <Route path="/products/beverages" element={<AllProducts />} />
-          <Route path="/products/:maintype/:subtype" element={<ProductsSubTypeItems />} />
+          <Route
+            path="/products/:maintype/:subtype"
+            element={<ProductsSubTypeItems />}
+          />
           <Route path="/cart" element={<CartPage />} />
           <Route
             path="/login"
