@@ -40,7 +40,6 @@ router.get('/:productId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log('what up backend', req.body);
     const newProduct = await Product.create({
       name: req.body.name,
       description: req.body.description,
@@ -58,7 +57,6 @@ router.post('/', async (req, res, next) => {
       where: { id: newProduct.id },
       include: [ProductTag],
     });
-    console.log('axios call:', productWithTag);
     res.send(productWithTag);
   } catch (error) {
     console.log(error);
@@ -77,5 +75,19 @@ router.delete('/:productId', async (req, res) => {
     res.status(204).send('Product deleted!');
   } catch (error) {
     next(error);
+  }
+});
+
+router.put('/:productId', async (req, res, next) => {
+  const productId = req.params.productId;
+  try {
+    const product = await Product.findByPk(productId);
+    if (!product) {
+      return res.status(404).send("Product doesn't exist.");
+    }
+    await product.update(req.body);
+    res.json(product);
+  } catch (err) {
+    next(err);
   }
 });
