@@ -35,6 +35,7 @@ export const me = createAsyncThunk('auth/me', async () => {
 export const authenticate = createAsyncThunk(
   'auth/authenticate',
   async ({ email, password, method, firstName, lastName }, thunkAPI) => {
+    // eslint-disable-next-line no-useless-catch
     try {
       const res = await axios.post(`/auth/${method}`, {
         email,
@@ -45,12 +46,13 @@ export const authenticate = createAsyncThunk(
       window.localStorage.setItem(TOKEN, res.data.token);
       thunkAPI.dispatch(me());
     } catch (err) {
-      if (err.response.data) {
-        console.log(err.response.data);
-        return thunkAPI.rejectWithValue(err.response.data);
-      } else {
-        return 'There was an issue with your request.';
-      }
+      // if (err.response.data) {
+      //   console.log(err.response.data);
+      //   return thunkAPI.rejectWithValue(err.response.data);
+      // } else {
+      //   return 'There was an issue with your request.';
+      // }
+      throw err;
     }
   }
 );
@@ -63,6 +65,7 @@ export const authSlice = createSlice({
   initialState: {
     me: {},
     error: null,
+    errorMessage: null,
   },
   reducers: {
     logout(state, action) {
