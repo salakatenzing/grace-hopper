@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import SingleProduct from './SingleProduct';
 import SimpleSingleItem from './SimpleSingleItem';
-import { fetchAllProducts, fetchMainCategory, selectAllProducts } from './allProductsSlice';
+import { fetchMainCategory, selectAllProducts } from './allProductsSlice';
 import 'react-multi-carousel/lib/styles.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import SingleProductDetail from '../productDetail/SingleProductDetail';
 
 
 export default function AllProducts() {
@@ -34,6 +35,8 @@ export default function AllProducts() {
 
   const allProducts = useSelector(selectAllProducts)
   const mainCategory = location.pathname.split('/')[2]
+  const [currentProduct, setCurrentProduct] = useState({})
+
 
   useEffect(() => {
     switch(mainCategory){
@@ -57,10 +60,6 @@ export default function AllProducts() {
       }
       dispatch(fetchMainCategory(mainCategory))
   }, [dispatch])
-
-  console.log('THIS IS SUBTYPE', subTypes)
-
-
 
   return (
     <div className="p-5">
@@ -90,13 +89,15 @@ export default function AllProducts() {
         >
           {allProducts && allProducts
           .filter((product)=> {
-            console.log("Product in filter", product)
             return (product.sub_type === title)
           })
           .map((product) => (
-            <SingleProduct key={uuidv4()} product={product.product} />
+            <div key={uuidv4()} onClick={() => setCurrentProduct(product.product)}>
+              <SingleProduct  product={product.product} />
+            </div>
           ))}
         </Carousel>
+          <SingleProductDetail product={currentProduct} />
         </>
         )
       })}
