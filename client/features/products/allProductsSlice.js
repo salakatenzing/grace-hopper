@@ -46,7 +46,6 @@ export const fetchMainCategory = createAsyncThunk(
       const { data } = await axios.get(
         `/api/product-tags/maintype/${main_type}`
       );
-      console.log('This is my Data', data);
       return data;
     } catch (err) {
       console.log(err);
