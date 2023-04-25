@@ -5,6 +5,8 @@ import { logout } from '../../app/store';
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const { userType } = useSelector((state) => state.auth.me);
+  // console.log(`inside NavBar: ${userType}`);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
@@ -103,7 +105,23 @@ const Navbar = () => {
               <Link to="/cart">
                 <i className="bi bi-basket me-5 fs-3 text-secondary"></i>
               </Link>
-              <i className="bi bi-person-circle fs-3 text"></i>
+              {userType === 'customer' ? (
+                <Link to="/user-page">
+                  <i className="bi bi-person-circle fs-3 text"></i>
+                </Link>
+              ) : (
+                <Link to="/admin">
+                  <i className="bi bi-person-circle fs-3 text"></i>
+                </Link>
+              )}
+
+              <button
+                type="button"
+                className="btn btn-secondary ms-3"
+                onClick={logoutAndRedirectHome}
+              >
+                Logout
+              </button>
             </div>
           ) : (
             <div className="d-flex align-items-center">
