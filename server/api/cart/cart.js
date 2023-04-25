@@ -164,12 +164,14 @@ router.put('/', async (req, res, next) => {
     const orderItem = await OrderItems.findOrCreate({
       where: { orderId: openOrder[0].dataValues.id, productId: productId },
       defaults: {
-        quantity,
+        quantity : 0,
       },
     });
-    await orderItem[0].update({ quantity: orderItem[0].quantity + quantity });
-
-    res.status(200).json({ message: 'Order updated successfully.' });
+    await orderItem[0].update({ quantity: orderItem[0].quantity + parseInt(quantity) });
+    const findOrder = await Order.findByPk(openOrder[0].dataValues.id, {
+      include: [{ model: OrderItems, include: [Product] }]
+    })
+    res.status(200).json(findOrder)
   } catch (err) {
     next(err);
   }
