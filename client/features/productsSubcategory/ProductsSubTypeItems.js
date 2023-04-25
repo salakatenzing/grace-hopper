@@ -12,7 +12,11 @@ export default function ProductsSubTypeItems() {
   const maintype = location.pathname.split('/')[2]
   const subtype = location.pathname.split('/')[3]
   const [currentProduct, setCurrentProduct] = useState({})
-
+  const renderLabel = () => {
+    const split = subtype.split('')
+    split[0] = split[0].toUpperCase()
+    return split.join('')
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const token = window.localStorage.getItem('token')
@@ -28,19 +32,20 @@ export default function ProductsSubTypeItems() {
 
   return (
     <div>
-      <h1>{subtype}</h1>
+      <h1>{renderLabel()}</h1>
       <hr />
       <div className="row">
       {subTypeItems.map((product) => {
         return(
-          <div className="col-sm-3" key={product.product.id}>
-            <div className="card" style={{width: "18rem"}} 
+          <div className="card-deck col-sm-3" key={product.product.id}>
+            <div className="card p-2 overflow-ellipses" style={{width: "18rem"}} 
             onClick={()=> setCurrentProduct(product.product)}>
               <img className="card-img-top" src={product.product.image} alt="Card image cap" width="16rem" data-bs-toggle="modal" data-bs-target="#productModal"/>
               <div className="card-body">
                 <h5 className="card-title">{product.product.name}</h5>
                 <p>{product.product.price}/ea.</p>
-                <p className="card-text">{product.product.description}</p>
+                <p className="card-text " style={{
+                }}>{product.product.description}</p>
                 <button type="submit" id={product.product.id} onClick={handleSubmit} className="btn btn-primary">Add to Cart</button>
               </div>
             </div>
