@@ -8,6 +8,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import ProductInfo from './ProductInfo';
+import UpdateProduct from './UpdateProduct';
 
 const ProductList = () => {
   const allProducts = useSelector(selectAllProducts);
@@ -36,6 +37,7 @@ const ProductList = () => {
       </div>
       {allProducts.map((product) => {
         const productInfoId = `productInfo-${product.id}`;
+        const updateProductId = `updateProduct-${product.id}`;
         return (
           <div
             key={uuidv4()}
@@ -70,9 +72,16 @@ const ProductList = () => {
             <div className="col">{product.stock_qty}</div>
             <div className="col">{product.per_unit}</div>
             <div className="col">
-              <button type="button" className="btn btn-primary btn-sm mx-1">
+              <button
+                type="button"
+                className="btn btn-primary btn-sm mx-1"
+                data-bs-container="body"
+                data-bs-toggle="modal"
+                data-bs-target={`#${updateProductId}`}
+              >
                 <i className="bi bi-pencil"></i>
               </button>
+              <UpdateProduct product={product} id={updateProductId} />
               <button
                 type="button"
                 className="btn btn-danger btn-sm"

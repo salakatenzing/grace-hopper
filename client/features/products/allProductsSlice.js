@@ -30,9 +30,7 @@ export const addProduct = createAsyncThunk(
   '/product/addProduct',
   async (product) => {
     try {
-      console.log('im in the async func', product);
       const newProduct = { ...product };
-      console.log(newProduct);
       const { data } = await axios.post('/api/products', newProduct);
       return data;
     } catch (err) {
@@ -49,6 +47,18 @@ export const fetchMainCategory = createAsyncThunk(
         `/api/product-tags/maintype/${main_type}`
       );
       console.log('This is my Data', data);
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const updateProduct = createAsyncThunk(
+  'products/updateProduct',
+  async (student) => {
+    try {
+      const { data } = await axios.put(`/api/products/${student.id}`, student);
       return data;
     } catch (err) {
       console.log(err);
@@ -74,6 +84,19 @@ const allProductsSlice = createSlice({
     builder.addCase(addProduct.fulfilled, (state, action) => {
       const newProduct = action.payload;
       return [...state, newProduct];
+    });
+    builder.addCase(updateProduct.fulfilled, (state, action) => {
+      const updatedProduct = action.payload;
+      const index = state.findIndex(
+        (product) => product.id === updatedProduct.id
+      );
+      if (index !== -1) {
+        state[index].name = updatedProduct.name;
+        state[index].price = updatedProduct.price;
+        state[index].description = updatedProduct.description;
+        state[index].stock_qty = updatedProduct.stock_qty;
+        state[index].per_unit = updatedProduct.per_unit;
+      }
     });
   },
 });
