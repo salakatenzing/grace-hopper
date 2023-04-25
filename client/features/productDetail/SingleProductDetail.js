@@ -7,13 +7,13 @@ export default function SingleProductDetail({product}) {
   const dispatch = useDispatch()
   const [currentProduct, setCurrentProduct] = useState({})
   const [quantity, setQuantity] = useState(1)
-  const [productId, setProductId] = useState()
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('this is in the submit function thingy')
-    setProductId(currentProduct.id)
-    dispatch(addToCart(quantity, productId, window.localStorage.getItem('token')))    
+    const token = window.localStorage.getItem('token')
+    const productId = product.id
+    
+    dispatch(addToCart({quantity, productId, token}))    
     setQuantity(1)
   }
 
@@ -40,7 +40,6 @@ export default function SingleProductDetail({product}) {
           </div>
           <div className="modal-footer" >
             <input type="number" name="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} min="1" max={product.stock_qty} style={{width: "50px"}}/>
-            {console.log(quantity)}
             <button type="submit" className="btn btn-primary" onClick={handleSubmit} >Add to Cart</button>
           </div>
         </div>

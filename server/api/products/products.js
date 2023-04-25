@@ -40,7 +40,6 @@ router.get('/:productId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log('what up backend', req.body);
     const newProduct = await Product.create({
       name: req.body.name,
       description: req.body.description,
@@ -58,7 +57,6 @@ router.post('/', async (req, res, next) => {
       where: { id: newProduct.id },
       include: [ProductTag],
     });
-    console.log('axios call:', productWithTag);
     res.send(productWithTag);
   } catch (error) {
     console.log(error);
