@@ -49,8 +49,10 @@ async function seed() {
 
   //Creating Product tags
   const productTags = await Promise.all(
-    productTagList.map(async (productTag, index) => {
-      const product = await Product.findByPk(index + 1);
+    productTagList.map(async (productTag) => {
+      const product = await Product.findOne({
+        where: { name: productTag.name },
+      });
       const newTag = await ProductTag.create({
         main_type: productTag.main_type,
         sub_type: productTag.sub_type,
@@ -91,7 +93,6 @@ async function seed() {
 
   console.log(`seeded ${user.length} user`);
   console.log(`seeded successfully`);
-  console.log('HERE ARE MY USERS ', user);
 
   // return {
   //   users: {

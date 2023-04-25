@@ -1,10 +1,35 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function Billing() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const billingDetails = {
+      firstName: event.target.firstName.value,
+      lastName: event.target.lastName.value,
+      email: event.target.email.value,
+      address: event.target.address.value,
+      address2: event.target.address2.value,
+      country: event.target.country.value,
+      state: event.target.state.value,
+      zip: event.target.zip.value,
+      ccName: event.target.ccName.value,
+      ccNumber: event.target.ccNumber.value,
+      ccExpiration: event.target.ccExpiration.value,
+      ccCvv: event.target.ccCvv.value,
+    };
+    event.target.reset();
+    console.log('HERE IS MY BILLING INFO, ', billingDetails);
+  };
+
   return (
     <div className="col-md-7 col-lg-8">
       <h4 className="mb-3">Billing address</h4>
-      <form className="needs-validation" noValidate="">
+      <form className="needs-validation" noValidate="" onSubmit={handleSubmit}>
         <div className="row g-3">
           <div className="col-sm-6">
             <label htmlFor="firstName" className="form-label">
@@ -15,7 +40,7 @@ export default function Billing() {
               className="form-control"
               id="firstName"
               placeholder=""
-              value=""
+              // value=""
               required=""
             />
             <div className="invalid-feedback">
@@ -32,7 +57,7 @@ export default function Billing() {
               className="form-control"
               id="lastName"
               placeholder=""
-              value=""
+              // value=""
               required=""
             />
             <div className="invalid-feedback">Valid last name is required.</div>
@@ -86,7 +111,7 @@ export default function Billing() {
               Country
             </label>
             <select className="form-select" id="country" required="">
-              <option value="">Choose...</option>
+              <option value="Two">Choose...</option>
               <option>United States</option>
             </select>
             <div className="invalid-feedback">
@@ -99,7 +124,7 @@ export default function Billing() {
               State
             </label>
             <select className="form-select" id="state" required="">
-              <option value="">Choose...</option>
+              <option value="One">Choose...</option>
               <option>California</option>
             </select>
             <div className="invalid-feedback">
@@ -126,46 +151,6 @@ export default function Billing() {
 
         <h4 className="mb-3">Payment</h4>
 
-        <div className="my-3">
-          <div className="form-check">
-            <input
-              id="credit"
-              name="paymentMethod"
-              type="radio"
-              className="form-check-input"
-              checked=""
-              required=""
-            />
-            <label className="form-check-label" htmlFor="credit">
-              Credit card
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              id="debit"
-              name="paymentMethod"
-              type="radio"
-              className="form-check-input"
-              required=""
-            />
-            <label className="form-check-label" htmlFor="debit">
-              Debit card
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              id="paypal"
-              name="paymentMethod"
-              type="radio"
-              className="form-check-input"
-              required=""
-            />
-            <label className="form-check-label" htmlFor="paypal">
-              PayPal
-            </label>
-          </div>
-        </div>
-
         <div className="row gy-3">
           <div className="col-md-6">
             <label htmlFor="cc-name" className="form-label">
@@ -174,7 +159,7 @@ export default function Billing() {
             <input
               type="text"
               className="form-control"
-              id="cc-name"
+              id="ccName"
               placeholder=""
               required=""
             />
@@ -191,7 +176,7 @@ export default function Billing() {
             <input
               type="text"
               className="form-control"
-              id="cc-number"
+              id="ccNumber"
               placeholder=""
               required=""
             />
@@ -207,7 +192,7 @@ export default function Billing() {
             <input
               type="text"
               className="form-control"
-              id="cc-expiration"
+              id="ccExpiration"
               placeholder=""
               required=""
             />
@@ -221,7 +206,7 @@ export default function Billing() {
             <input
               type="text"
               className="form-control"
-              id="cc-cvv"
+              id="ccCvv"
               placeholder=""
               required=""
             />
@@ -231,8 +216,8 @@ export default function Billing() {
 
         <hr className="my-4" />
 
-        <button className="w-100 btn btn-primary btn-lg" type="submit">
-          Continue to checkout
+        <button className="w-100 btn btn-primary btn-lg mb-5" type="submit">
+          Purchase
         </button>
       </form>
     </div>
