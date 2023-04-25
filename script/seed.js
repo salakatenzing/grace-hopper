@@ -33,6 +33,13 @@ async function seed() {
       password: 'RockDoesNotRule',
       userType: 'customer',
     }),
+    User.create({
+      firstName: 'bill',
+      lastName: 'stevenson',
+      email: 'billstevenson@jurrasic.com',
+      password: '123password',
+      userType: 'admin',
+    }),
   ]);
 
   // Creating Product List
@@ -84,13 +91,15 @@ async function seed() {
 
   console.log(`seeded ${user.length} user`);
   console.log(`seeded successfully`);
+  console.log('HERE ARE MY USERS ', user);
 
-  return {
-    users: {
-      fred: user[0],
-      murphy: user[1],
-    },
-  };
+  // return {
+  //   users: {
+  //     fred: user[0],
+  //     murphy: user[1],
+  //     bill: user[2],
+  //   },
+  // };
 }
 // console.log(Product.prototype);
 /*
