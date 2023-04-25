@@ -31,7 +31,7 @@ export default function ShoppingCart() {
         {cartItems && <Subtotal cartItems={cartItems} />}
       </ul>
 
-      <PromoRedeem />
+      {/* <PromoRedeem /> */}
     </div>
   );
 }
