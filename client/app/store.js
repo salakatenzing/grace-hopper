@@ -6,6 +6,7 @@ import singleProductSlice from '../features/productDetail/singleProductSlice';
 import productCardSlice from '../features/productCards/productCardSlice';
 import productSubTypeSlice from '../features/productsSubcategory/productSubTypeSlice';
 import cartSlice from '../features/Cart/cartSlice';
+import allUsersSlice from '../features/admin/allUsersSlice';
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     mainTypes: productCardSlice,
     productSubTypeItems: productSubTypeSlice,
     cartItems: cartSlice,
+    allUsers: allUsersSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
