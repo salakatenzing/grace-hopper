@@ -14,7 +14,6 @@ export default function ProductsSubTypeItems() {
   const [currentProduct, setCurrentProduct] = useState({})
 
   const handleSubmit = (event) => {
-    console.log('this is event.target.id >>> ', event.target.id)
     event.preventDefault();
     const token = window.localStorage.getItem('token')
     const productId = event.target.id
