@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { authenticate } from '../../app/store';
+import { authenticate, setErrorMessage } from '../../app/store';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from './Login';
 import SignUp from './SignUp';
@@ -12,11 +12,11 @@ import SignUp from './SignUp';
 **/
 //The name is the method of the for the server to use, this the method that the slice uses -> Tenzing Salaka
 const AuthForm = ({ name, displayName }) => {
-  const { error } = useSelector((state) => state.auth);
+  const { error, setError } = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     if (name === 'signup') {
       const formName = evt.target.name;
@@ -29,11 +29,24 @@ const AuthForm = ({ name, displayName }) => {
       );
       navigate('/', { replace: true });
     } else if (name === 'login') {
-      const formName = evt.target.name;
-      const email = evt.target.email.value;
-      const password = evt.target.password.value;
-      dispatch(authenticate({ email, password, method: formName }));
-      navigate('/', { replace: true });
+      try {
+        const formName = evt.target.name;
+        const email = evt.target.email.value;
+        const password = evt.target.password.value;
+        // dispatch(authenticate({ email, password, method: formName }));
+        // navigate('/', { replace: true });
+        const result = await dispatch(
+          authenticate({ email, password, method: formName })
+        );
+
+        if (result.type === 'auth/authenticate/fulfilled') {
+          navigate('/', { replace: true });
+        } else {
+          setError('Wrong email or password.');
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     // console.log(`firstNAme: ${firstName}, lastName:${lastName}`);
@@ -56,6 +69,7 @@ const AuthForm = ({ name, displayName }) => {
 
   return (
     <div className="card mt-5 mb-5 m-auto p-4" style={{ width: '25rem' }}>
+      {error && <div className="alert alert-danger">{error}</div>}
       <form className="text-center" onSubmit={handleSubmit} name={name}>
         <img className="mb-4" src="/images/Maverick.svg" alt="" width="72" />
         {name === 'login' ? <Login /> : <SignUp />}
