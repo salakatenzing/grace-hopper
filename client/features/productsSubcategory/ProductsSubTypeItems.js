@@ -79,7 +79,9 @@ export default function ProductsSubTypeItems() {
                     </small>
                   </p>
                   <p className="card-text-sub p-2" style={{ overflow: 'auto' }}>
-                    {product.product.description}
+                    {product.product.description.length > 50
+                      ? product.product.description.slice(0, 50) + '...'
+                      : product.product.description}
                   </p>
                   <button
                     type="submit"
