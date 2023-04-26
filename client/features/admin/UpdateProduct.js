@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateProduct } from '../products/allProductsSlice';
+import { updateProduct } from './adminAllProductsSlice';
 
 const UpdateProduct = ({ product }) => {
   const dispatch = useDispatch();
