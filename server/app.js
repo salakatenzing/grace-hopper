@@ -2,8 +2,10 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+var cors = require('cors');
 module.exports = app;
 
+app.use(cors());
 // logging middleware
 app.use(morgan('dev'));
 

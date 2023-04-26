@@ -8,6 +8,7 @@ export const fetchAllProducts = createAsyncThunk(
       const { data } = await axios.get(
         'https://maverick-merchants.onrender.com/api/products'
       );
+      console.log('AM I GETTING ANYTHING?>', data);
       return data;
     } catch (err) {
       console.log(err);
