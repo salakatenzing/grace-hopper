@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 const router = require('express').Router();
+const { Op } = require('sequelize');
 const {
   models: { Order, User, Product, OrderItems },
 } = require('../../db');
@@ -143,7 +144,7 @@ router.put('/', async (req, res, next) => {
       quantity: orderItem[0].quantity + parseInt(quantity),
     });
     if (updatedItem.dataValues.quantity === 0) {
-      OrderItems.destroy({ where: { quantity: { $lte: 0 } } });
+      OrderItems.destroy({ where: { quantity: { [Op.lte]: 0 } } });
     }
     const findOrder = await Order.findByPk(openOrder[0].dataValues.id, {
       include: [{ model: OrderItems, include: [Product] }],
