@@ -3,11 +3,14 @@ import axios from 'axios';
 
 export const fetchCart = createAsyncThunk('/cart/cartItems', async (token) => {
   try {
-    const { data } = await axios.get('/api/cart', {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const { data } = await axios.get(
+      'https://maverick-merchants.onrender.com/api/cart',
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
     return data.order_items;
   } catch (err) {
     console.log(err);
@@ -19,7 +22,7 @@ export const addToCart = createAsyncThunk(
   async ({ quantity, productId, token }) => {
     try {
       await axios.put(
-        '/api/cart/',
+        'https://maverick-merchants.onrender.com/api/cart/',
         { quantity, productId },
         {
           headers: {
@@ -27,11 +30,14 @@ export const addToCart = createAsyncThunk(
           },
         }
       );
-      const { data } = await axios.get('/api/cart', {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const { data } = await axios.get(
+        'https://maverick-merchants.onrender.com/api/cart',
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
       return data.order_items;
     } catch (err) {
       console.log(err);
@@ -44,7 +50,7 @@ export const cartCheckOut = createAsyncThunk(
   async (billingDetails) => {
     try {
       await axios.put(
-        '/api/cart/checkout',
+        'https://maverick-merchants.onrender.com/api/cart/checkout',
         { billingDetails },
         {
           headers: {

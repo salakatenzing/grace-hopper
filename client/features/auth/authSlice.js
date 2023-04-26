@@ -7,11 +7,14 @@ export const me = createAsyncThunk('auth/me', async () => {
   const token = window.localStorage.getItem(TOKEN);
   try {
     if (token) {
-      const res = await axios.get('/auth/me', {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const res = await axios.get(
+        'https://maverick-merchants.onrender.com/auth/me',
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
       return res.data;
     } else {
       return {};
@@ -31,12 +34,15 @@ export const authenticate = createAsyncThunk(
   async ({ email, password, method, firstName, lastName }, thunkAPI) => {
     // eslint-disable-next-line no-useless-catch
     try {
-      const res = await axios.post(`/auth/${method}`, {
-        email,
-        password,
-        firstName,
-        lastName,
-      });
+      const res = await axios.post(
+        `https://maverick-merchants.onrender.com/auth/${method}`,
+        {
+          email,
+          password,
+          firstName,
+          lastName,
+        }
+      );
       window.localStorage.setItem(TOKEN, res.data.token);
       thunkAPI.dispatch(me());
     } catch (err) {

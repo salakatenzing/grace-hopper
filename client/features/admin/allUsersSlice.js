@@ -3,7 +3,9 @@ import axios from 'axios';
 
 export const fetchAllUsers = createAsyncThunk('/users/fetchAll', async () => {
   try {
-    const { data } = await axios.get('/api/users');
+    const { data } = await axios.get(
+      'https://maverick-merchants.onrender.com/api/users'
+    );
     return data;
   } catch (err) {
     console.log(err);

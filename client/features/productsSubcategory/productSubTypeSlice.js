@@ -6,7 +6,7 @@ export const fetchProductSubtype = createAsyncThunk(
   async ({ maintype, subtype }) => {
     try {
       const { data } = await axios.get(
-        `/api/product-tags/maintype/${maintype}`
+        `https://maverick-merchants.onrender.com/api/product-tags/maintype/${maintype}`
       );
       return data.filter((product) => product.sub_type === subtype);
     } catch (err) {
