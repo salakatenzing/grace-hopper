@@ -6,7 +6,7 @@ import { fetchMainCategory, selectAllProducts } from './allProductsSlice';
 import 'react-multi-carousel/lib/styles.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SingleProductDetail from '../productDetail/SingleProductDetail';
 
 export default function AllProducts() {
@@ -29,15 +29,26 @@ export default function AllProducts() {
     },
   };
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation()
   const [subTypes, setSubTypes] = useState([]);
 
   const allProducts = useSelector(selectAllProducts);
-  const mainCategory = location.pathname.split('/')[2];
+  const { maintype } = useParams();
   const [currentProduct, setCurrentProduct] = useState({});
 
+  const renderLabel = (title) => {
+    const split = title.split('');
+    if (split.includes('-')) {
+      const dash = split.indexOf('-');
+      split[dash] = ' ';
+      split[dash + 1] = split[dash + 1].toUpperCase();
+    }
+    split[0] = split[0].toUpperCase();
+    return split.join('');
+  };
+
   useEffect(() => {
-    switch (mainCategory) {
+    switch (maintype) {
       case 'produce':
         setSubTypes(['fruit', 'vegetable', 'other']);
         break;
@@ -56,11 +67,11 @@ export default function AllProducts() {
       default:
         return;
     }
-    dispatch(fetchMainCategory(mainCategory));
-  }, [dispatch, location]);
+    dispatch(fetchMainCategory(maintype));
+  }, [dispatch]);
 
   return (
-    <div className="p-5">
+    <div className="p-5 d-flex flex-column align-content-center">
       <h2>Suggestions</h2>
       <Carousel
         className="w-75 m-auto"
@@ -79,12 +90,9 @@ export default function AllProducts() {
         subTypes.map((title) => {
           return (
             <>
-              <Link
-                className="text-decoration-none text-black"
-                to={`/products/${mainCategory}/${title}`}
-              >
+              <Link to={`/products/${maintype}/${title}`}>
                 <h2 key={uuidv4()} className="mt-5">
-                  {title[0].toUpperCase() + title.slice(1, title.length)}
+                  {renderLabel(title)}
                 </h2>
               </Link>
               <Carousel
@@ -108,6 +116,7 @@ export default function AllProducts() {
                     ))}
               </Carousel>
               <SingleProductDetail product={currentProduct} />
+              <hr />
             </>
           );
         })}

@@ -11,6 +11,7 @@ export default function ProductCards({ category }) {
           src={category && category.image}
           className="card-img-top rounded"
           alt="..."
+          style={{height: "250px"}}
         ></img>
       </div>
     </Link>

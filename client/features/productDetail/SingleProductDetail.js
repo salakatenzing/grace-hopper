@@ -42,12 +42,14 @@ export default function SingleProductDetail({ product }) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">
-            <img src={product.image} alt="product pic here" width="400px" />
-            <h5>{product.price}/ea</h5>
+          <div className="modal-body bg-light d-flex flex-column align-items-center">
+            <img src={product.image} alt="product pic here " width="400px" />
+            <h5>${product.price}/ea</h5>
             <h6>{product.per_unit}</h6>
             <p>
-              <small>Stock Qty: {product.stock_qty}</small>
+              <small className="text-muted">
+                Stock Qty: {product.stock_qty}
+              </small>
             </p>
             <p>{product.description}</p>
           </div>

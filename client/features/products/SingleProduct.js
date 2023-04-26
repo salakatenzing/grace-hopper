@@ -15,9 +15,10 @@ export default function SingleProduct({ product }) {
   };
   if (product) {
     return (
-      <div className="card me-2">
+      <div className="card me-2" style={{ height: '410px' }}>
         <img
           src={product.image}
+          style={{ height: '200px' }}
           className="card-img-top"
           alt="..."
           data-bs-toggle="modal"
@@ -34,9 +35,12 @@ export default function SingleProduct({ product }) {
             type="submit"
             id={product.id}
             onClick={handleSubmit}
-            className="btn btn-primary"
+            className="btn btn-primary "
           >
-            Add
+            <i
+              id={product.id}
+              className="bi bi-basket me-1 fs-3 text-light"
+            ></i>
           </button>
         </div>
       </div>
