@@ -23,14 +23,6 @@ const promotionsData = [
   },
 ];
 
-const PromotionCard = () => {
-  const promoArray = [];
-  for (let i = 0; i < 3; i++) {
-    promoArray.push(<PromoCard key={uuidv4()} value={i} />);
-  }
-  return promoArray;
-};
-
 export default function Promotions() {
   return (
     <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
@@ -58,7 +50,11 @@ export default function Promotions() {
           className=""
         ></button>
       </div>
-      <div className="carousel-inner">{PromotionCard()}</div>
+      <div className="carousel-inner">
+        {promotionsData.map((promo) => {
+          return <PromoCard key={uuidv4()} promo={promo} />;
+        })}
+      </div>
       <button
         className="carousel-control-prev"
         type="button"

@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-export default function PromoCard({ value }) {
+export default function PromoCard({ promo }) {
+  console.log('HERE IS MY PROMO, ', promo);
   return (
-    <div className={value === 0 ? 'carousel-item active' : 'carousel-item'}>
+    <div
+      className={
+        promo.id === 1
+          ? 'carousel-item active bg-success bg-gradient'
+          : 'carousel-item bg-success bg-gradient'
+      }
+    >
       <svg
         className="bd-placeholder-img"
         width="100%"
@@ -21,16 +28,8 @@ export default function PromoCard({ value }) {
       </svg>
       <div className="container">
         <div className="carousel-caption text-start">
-          <h1>Example headline.</h1>
-          <p>
-            Some representative placeholder content for the first slide of the
-            carousel.
-          </p>
-          <p>
-            <a className="btn btn-lg btn-primary" href="#">
-              Sign up today
-            </a>
-          </p>
+          <h3>{promo.title}</h3>
+          <h5>{promo.description}</h5>
         </div>
       </div>
     </div>
