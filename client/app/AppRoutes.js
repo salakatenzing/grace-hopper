@@ -33,11 +33,7 @@ const AppRoutes = () => {
       {isLoggedIn ? (
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/products/produce" element={<AllProducts />} />
-          <Route path="/products/dairy-eggs" element={<AllProducts />} />
-          <Route path="/products/meat" element={<AllProducts />} />
-          <Route path="/products/dried-goods" element={<AllProducts />} />
-          <Route path="/products/beverages" element={<AllProducts />} />
+          <Route path="/products/:maintype" element={<AllProducts />} />
           <Route
             path="/products/:maintype/:subtype"
             element={<ProductsSubTypeItems />}
@@ -50,11 +46,7 @@ const AppRoutes = () => {
       ) : (
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/products/produce" element={<AllProducts />} />
-          <Route path="/products/dairy-eggs" element={<AllProducts />} />
-          <Route path="/products/meat" element={<AllProducts />} />
-          <Route path="/products/dried-goods" element={<AllProducts />} />
-          <Route path="/products/beverages" element={<AllProducts />} />
+          <Route path="/products/:maintype" element={<AllProducts />} />
           <Route
             path="/products/:maintype/:subtype"
             element={<ProductsSubTypeItems />}
