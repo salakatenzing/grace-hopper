@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { authenticate, setErrorMessage } from '../../app/store';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from './Login';

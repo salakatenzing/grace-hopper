@@ -25,7 +25,7 @@ export default function SingleProduct({ product }) {
           data-bs-target="#productModal"
         />
         <div className="card-body">
-          <h5 className="card-title">
+          <h5 className="card-title ">
             {product.name.length > 15
               ? product.name.slice(0, 15) + '...'
               : product.name}

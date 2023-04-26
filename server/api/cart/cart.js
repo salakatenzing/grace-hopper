@@ -7,33 +7,10 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 module.exports = router;
 
-// // const { Op } = require('sequelize');
-
-// middleware to authenticate user via JWT token
-
-//talk with team, the following is a idea to implement a middleware inside routes
-// const authenticateUser = async (req, res, next) => {
-//   try {
-//     //the following will have a http authentication called Bearer as first element in the array
-//     //the second element will be the JWT token.
-//     const bearAndToken = req.headers.authorization.split(' ');
-//     //this grabs the JWT token
-//     const token = bearAndToken[1];
-//     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-//     const userId = decodedToken.id;
-//     const user = await User.findByPk(userId);
-//     req.user = user;
-//     next();
-//   } catch (error) {
-//     res.status(401).send('User not authenticated');
-//   }
-// };
-
 router.get('/', async (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
-    //verify this JWT
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = extractedToken.id;
     const openOrder = await Order.findOne({
@@ -48,21 +25,20 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-//create a new order with
 router.post('/', async (req, res, next) => {
   try {
     const tokenInHeader = req.headers.authorization.split(' ');
     const token = tokenInHeader[1];
-    //verify this JWT
+
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
-    //   console.log(extractedToken.id);
+
     const userId = extractedToken.id;
     const { quantity, productId } = req.body;
 
     const openOrder = await Order.findOne({
       where: { userId: userId, completion: false },
     });
-    //this con cuts off the function if a open order exists
+
     if (openOrder) {
       return res
         .status(400)
@@ -93,19 +69,16 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-//delete order
 router.delete('/:orderId', async (req, res, next) => {
   try {
     const { orderId } = req.params;
 
     const order = await Order.findOne({ where: { id: orderId } });
-    //error handler if order doesn't exist
+
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    // in order to delete the Order, you need to delete the foreign keys associated first
-    //therefore the OrderItems THEN the Order
     await OrderItems.destroy({ where: { orderId } });
     await Order.destroy({ where: { id: orderId } });
 
@@ -115,12 +88,11 @@ router.delete('/:orderId', async (req, res, next) => {
   }
 });
 
-//adds OrderItems to a order
 router.post('/add-to-order', async (req, res, next) => {
   try {
     const tokenInHeader = req.headers.authorization.split(' ');
     const token = tokenInHeader[0];
-    //verify this JWT
+
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = extractedToken.id;
     const { quantity, productId } = req.body;
@@ -179,7 +151,6 @@ router.put('/', async (req, res, next) => {
   }
 });
 
-//checkout the order and finish
 router.put('/checkout', async (req, res, next) => {
   try {
     const token = req.headers.authorization;
@@ -190,9 +161,6 @@ router.put('/checkout', async (req, res, next) => {
       where: { userId: userId, completion: false },
     });
 
-    console.log('DID I HIT HERE?????', openOrder);
-
-    // Set completion to true and update the order
     await openOrder.update(
       { completion: true },
       { where: { userId: userId, completion: false } }

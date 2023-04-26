@@ -29,7 +29,6 @@ export default function AllProducts() {
     },
   };
   const dispatch = useDispatch();
-  // const location = useLocation()
   const [subTypes, setSubTypes] = useState([]);
 
   const allProducts = useSelector(selectAllProducts);
@@ -68,7 +67,7 @@ export default function AllProducts() {
         return;
     }
     dispatch(fetchMainCategory(maintype));
-  }, [dispatch]);
+  }, [dispatch, maintype]);
 
   return (
     <div className="p-5 d-flex flex-column align-content-center">
@@ -90,16 +89,18 @@ export default function AllProducts() {
         subTypes.map((title) => {
           return (
             <>
-              <Link to={`/products/${maintype}/${title}`}>
-                <h2 key={uuidv4()} className="mt-5">
-                  {renderLabel(title)}
-                </h2>
+              <Link
+                className="text-decoration-none text-black"
+                to={`/products/${maintype}/${title}`}
+              >
+                <h2 className="mt-5">{renderLabel(title)}</h2>
               </Link>
               <Carousel
                 responsive={responsive}
                 infinite={true}
                 autoPlay={true}
                 autoPlaySpeed={10000}
+                className="mb-5"
               >
                 {allProducts &&
                   allProducts

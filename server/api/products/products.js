@@ -2,9 +2,9 @@ const router = require('express').Router();
 const {
   models: { Product, ProductTag },
 } = require('../../db');
-// const Product_Tag = require('../db/models/ProductTag');
+
 module.exports = router;
-//route is /api/products for the following routes
+
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
@@ -64,7 +64,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.delete('/:productId', async (req, res) => {
+router.delete('/:productId', async (req, res, next) => {
   const productId = req.params.productId;
   try {
     const product = await Product.findByPk(productId);
