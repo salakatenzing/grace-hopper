@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { cartCheckOut } from './cartSlice';
 
 export default function Billing() {
   const dispatch = useDispatch();
@@ -22,8 +23,10 @@ export default function Billing() {
       ccExpiration: event.target.ccExpiration.value,
       ccCvv: event.target.ccCvv.value,
     };
+
+    dispatch(cartCheckOut(billingDetails));
     event.target.reset();
-    console.log('HERE IS MY BILLING INFO, ', billingDetails);
+    navigate('/');
   };
 
   return (
@@ -40,7 +43,6 @@ export default function Billing() {
               className="form-control"
               id="firstName"
               placeholder=""
-              // value=""
               required=""
             />
             <div className="invalid-feedback">
@@ -57,7 +59,6 @@ export default function Billing() {
               className="form-control"
               id="lastName"
               placeholder=""
-              // value=""
               required=""
             />
             <div className="invalid-feedback">Valid last name is required.</div>

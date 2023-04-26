@@ -4,7 +4,6 @@ import axios from 'axios';
 export const fetchProductType = createAsyncThunk('/home', async () => {
   try {
     const { data } = await axios.get();
-    //grab all product tags!!! may need to add imgUrl btw if they're supposed to exist
   } catch (err) {
     console.log(err);
   }

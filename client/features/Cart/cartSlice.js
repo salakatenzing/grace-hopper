@@ -13,9 +13,10 @@ export const fetchCart = createAsyncThunk('/cart/cartItems', async (token) => {
     console.log(err);
   }
 });
+
 export const addToCart = createAsyncThunk(
   '/cart/addToCart',
-  async ({quantity, productId, token}) => {
+  async ({ quantity, productId, token }) => {
     try {
       await axios.put(
         '/api/cart/',
@@ -32,8 +33,25 @@ export const addToCart = createAsyncThunk(
         },
       });
       return data.order_items;
-  
-      // return data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const cartCheckOut = createAsyncThunk(
+  '/cart/cartCheckOut',
+  async (billingDetails) => {
+    try {
+      await axios.put(
+        '/api/cart/checkout',
+        { billingDetails },
+        {
+          headers: {
+            Authorization: window.localStorage.getItem('token'),
+          },
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +67,10 @@ export const cartSlice = createSlice({
       return payload;
     });
     builder.addCase(addToCart.fulfilled, (state, { payload }) => {
-      return payload
+      return payload;
+    });
+    builder.addCase(cartCheckOut.fulfilled, (state, { payload }) => {
+      return [];
     });
   },
 });

@@ -7,29 +7,20 @@ import CartPage from '../features/Cart/CartPage';
 import AllProducts from '../features/products/AllProducts-Page';
 import NotFoundPage from '../features/NotFoundPage/NotFoundPage';
 import { me } from './store';
-import { selectUser } from './store';
 import UserPage from '../features/UserPage/UserPage';
 import ProductsSubTypeItems from '../features/productsSubcategory/ProductsSubTypeItems';
 import Admin from '../features/admin/Admin';
 
-/**
- * COMPONENT
- */
-
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
-  const userObject = useSelector(selectUser);
-  const userId = userObject.id;
 
   useEffect(() => {
     dispatch(me());
   }, []);
-  const meData = useSelector((state) => state.auth.me);
 
   return (
     <div>
-      {console.log(meData)}
       {isLoggedIn ? (
         <Routes>
           <Route index element={<Home />} />

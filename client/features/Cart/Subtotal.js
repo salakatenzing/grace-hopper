@@ -6,7 +6,11 @@ export default function Subtotal({ cartItems }) {
     <li className="list-group-item d-flex justify-content-between">
       <span>Total (USD)</span>
       <strong>
-        ${cartItems.reduce((acc, curr) => acc + curr.quantity * 1.99, 0)}
+        $
+        {cartItems.reduce(
+          (acc, curr) => acc + curr.quantity * curr.product.price,
+          0
+        )}
       </strong>
     </li>
   );

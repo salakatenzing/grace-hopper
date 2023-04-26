@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateProduct } from './adminAllProductsSlice';

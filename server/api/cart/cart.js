@@ -164,14 +164,16 @@ router.put('/', async (req, res, next) => {
     const orderItem = await OrderItems.findOrCreate({
       where: { orderId: openOrder[0].dataValues.id, productId: productId },
       defaults: {
-        quantity : 0,
+        quantity: 0,
       },
     });
-    await orderItem[0].update({ quantity: orderItem[0].quantity + parseInt(quantity) });
+    await orderItem[0].update({
+      quantity: orderItem[0].quantity + parseInt(quantity),
+    });
     const findOrder = await Order.findByPk(openOrder[0].dataValues.id, {
-      include: [{ model: OrderItems, include: [Product] }]
-    })
-    res.status(200).json(findOrder)
+      include: [{ model: OrderItems, include: [Product] }],
+    });
+    res.status(200).json(findOrder);
   } catch (err) {
     next(err);
   }
@@ -180,8 +182,7 @@ router.put('/', async (req, res, next) => {
 //checkout the order and finish
 router.put('/checkout', async (req, res, next) => {
   try {
-    const tokenInHeader = req.headers.authorization.split(' ');
-    const token = tokenInHeader[1];
+    const token = req.headers.authorization;
     const extractedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = extractedToken.id;
 
@@ -189,9 +190,7 @@ router.put('/checkout', async (req, res, next) => {
       where: { userId: userId, completion: false },
     });
 
-    if (!openOrder) {
-      return res.status(404).json({ message: 'No open orders exists.' });
-    }
+    console.log('DID I HIT HERE?????', openOrder);
 
     // Set completion to true and update the order
     await openOrder.update(
