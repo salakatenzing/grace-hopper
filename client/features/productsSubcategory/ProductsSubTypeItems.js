@@ -48,7 +48,11 @@ export default function ProductsSubTypeItems() {
       </h1>
       <hr />
       <div className="row justify-content-center">
-        {subTypeItems.map((product) => {
+        {subTypeItems && subTypeItems
+        .filter((product) => {
+          return product.product !== null;
+        })
+        .map((product) => {
           return (
             <div
               className="card p-2"

@@ -108,11 +108,15 @@ export default function AllProducts() {
                       .filter((product) => {
                         return product.sub_type === title;
                       })
+                      .filter((product) => {
+                        return product.product !== null;
+                      })
                       .map((product) => (
                         <div
                           key={uuidv4()}
                           onClick={() => setCurrentProduct(product.product)}
                         >
+                          {console.log(product)}
                           <SingleProduct product={product.product} />
                         </div>
                       ))}
