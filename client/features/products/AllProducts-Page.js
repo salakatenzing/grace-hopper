@@ -116,7 +116,6 @@ export default function AllProducts() {
                           key={uuidv4()}
                           onClick={() => setCurrentProduct(product.product)}
                         >
-                          {console.log(product)}
                           <SingleProduct product={product.product} />
                         </div>
                       ))}
