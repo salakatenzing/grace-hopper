@@ -87,39 +87,41 @@ export default function AllProducts() {
 
       {subTypes &&
         subTypes.map((title) => {
-          return (
-            <>
-              <Link
-                className="text-decoration-none text-black"
-                to={`/products/${maintype}/${title}`}
-              >
-                <h2 className="mt-5">{renderLabel(title)}</h2>
-              </Link>
-              <Carousel
-                responsive={responsive}
-                infinite={true}
-                autoPlay={true}
-                autoPlaySpeed={10000}
-                className="mb-5"
-              >
-                {allProducts &&
-                  allProducts
-                    .filter((product) => {
-                      return product.sub_type === title;
-                    })
-                    .map((product) => (
-                      <div
-                        key={uuidv4()}
-                        onClick={() => setCurrentProduct(product.product)}
-                      >
-                        <SingleProduct product={product.product} />
-                      </div>
-                    ))}
-              </Carousel>
-              <SingleProductDetail product={currentProduct} />
-              <hr />
-            </>
-          );
+          if (allProducts.map((product) => product.sub_type).includes(title)) {
+            return (
+              <>
+                <Link
+                  className="text-decoration-none text-black"
+                  to={`/products/${maintype}/${title}`}
+                >
+                  <h2 className="mt-5">{renderLabel(title)}</h2>
+                </Link>
+                <Carousel
+                  responsive={responsive}
+                  infinite={true}
+                  autoPlay={true}
+                  autoPlaySpeed={10000}
+                  className="mb-5"
+                >
+                  {allProducts &&
+                    allProducts
+                      .filter((product) => {
+                        return product.sub_type === title;
+                      })
+                      .map((product) => (
+                        <div
+                          key={uuidv4()}
+                          onClick={() => setCurrentProduct(product.product)}
+                        >
+                          <SingleProduct product={product.product} />
+                        </div>
+                      ))}
+                </Carousel>
+                <SingleProductDetail product={currentProduct} />
+                <hr />
+              </>
+            );
+          }
         })}
     </div>
   );
