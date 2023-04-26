@@ -4,6 +4,7 @@ require('dotenv').config();
 const config = {
   port: '5432',
   dialect: 'postgres',
+  logging: false,
   dialectOptions: {
     ssl: {
       require: true,
