@@ -91,3 +91,10 @@ router.put('/:productId', async (req, res, next) => {
     next(err);
   }
 });
+
+// sends index.html
+router.use('*', (req, res) => {
+  // res.status(404).send('Not a valid url');
+  // eslint-disable-next-line no-undef
+  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+});
