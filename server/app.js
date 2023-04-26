@@ -37,7 +37,13 @@ app.use((req, res, next) => {
 // sends index.html
 app.use('*', (req, res) => {
   // res.status(404).send('Not a valid url');
-  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+  res.sendFile(
+    path.join(
+      __dirname ? __dirname : 'https://sensational-gumdrop-3c0e68.netlify.app/',
+      '..',
+      'public/index.html'
+    )
+  );
 });
 
 // error handling endware
