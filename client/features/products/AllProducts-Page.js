@@ -6,7 +6,7 @@ import { fetchMainCategory, selectAllProducts } from './allProductsSlice';
 import 'react-multi-carousel/lib/styles.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SingleProductDetail from '../productDetail/SingleProductDetail';
 
 
@@ -30,16 +30,16 @@ export default function AllProducts() {
     },
   };
   const dispatch = useDispatch()
-  const location = useLocation()
+  // const location = useLocation()
   const [subTypes, setSubTypes] = useState([])
 
   const allProducts = useSelector(selectAllProducts)
-  const mainCategory = location.pathname.split('/')[2]
+  const {maintype} = useParams()
   const [currentProduct, setCurrentProduct] = useState({})
 
 
   useEffect(() => {
-    switch(mainCategory){
+    switch(maintype){
       case 'produce':
         setSubTypes(['fruit', 'vegetable', 'other'])
         break
@@ -58,7 +58,7 @@ export default function AllProducts() {
       default:
         return
       }
-      dispatch(fetchMainCategory(mainCategory))
+      dispatch(fetchMainCategory(maintype))
   }, [dispatch])
 
   return (
@@ -80,7 +80,7 @@ export default function AllProducts() {
       {subTypes && subTypes.map((title)=> {
         return (
           <>
-          <Link to={`/products/${mainCategory}/${title}`}><h2 key={uuidv4()} className="mt-5">{title}</h2></Link>
+          <Link to={`/products/${maintype}/${title}`}><h2 key={uuidv4()} className="mt-5">{title}</h2></Link>
           <Carousel
           responsive={responsive}
           infinite={true}
