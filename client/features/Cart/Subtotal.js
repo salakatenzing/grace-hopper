@@ -7,10 +7,9 @@ export default function Subtotal({ cartItems }) {
       <span>Total (USD)</span>
       <strong>
         $
-        {cartItems.reduce(
-          (acc, curr) => acc + curr.quantity * curr.product.price,
-          0
-        )}
+        {cartItems
+          .reduce((acc, curr) => acc + curr.quantity * curr.product.price, 0)
+          .toFixed(2)}
       </strong>
     </li>
   );
