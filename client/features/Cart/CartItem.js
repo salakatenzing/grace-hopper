@@ -7,7 +7,6 @@ export default function CartItem({ item }) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    console.log('YOU CLICKED ME!', item);
     const token = window.localStorage.getItem('token');
     const productId = item.product.id;
     const quantity = -1;
@@ -25,7 +24,7 @@ export default function CartItem({ item }) {
         <small className="text-body-secondary">Qty: {item.quantity}</small>
       </div>
       <span className="text-body-secondary">
-        ${item.quantity * item.product.price}
+        ${(item.quantity * item.product.price).toFixed(2)}
       </span>
     </li>
   );
