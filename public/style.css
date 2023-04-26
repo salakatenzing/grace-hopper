@@ -2,5 +2,29 @@ body {
   font-family: sans-serif;
 }
 
+.card-text-sub{
+  height: 150px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.card-text-sub p {
+  width: auto;
+  word-break: break-word;
+}
+
+.item :hover{
+  border: solid blue 1px;
+}
+
+.card-title-product {
+  height:100px;
+  overflow: auto;
+}
 
 
+.card-body {
+  display: flex;
+  align-content: space-between;
+  flex-direction: column;
+}

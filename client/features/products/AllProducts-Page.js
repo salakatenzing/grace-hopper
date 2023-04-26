@@ -37,6 +37,16 @@ export default function AllProducts() {
   const {maintype} = useParams()
   const [currentProduct, setCurrentProduct] = useState({})
 
+  const renderLabel = (title) => {
+    const split = title.split('')
+    if (split.includes('-')) {
+      const dash = split.indexOf('-')
+      split[dash] = ' '
+      split[dash + 1] = split[dash + 1].toUpperCase()
+    }
+    split[0] = split[0].toUpperCase()
+    return split.join('')
+  }
 
   useEffect(() => {
     switch(maintype){
@@ -62,7 +72,7 @@ export default function AllProducts() {
   }, [dispatch])
 
   return (
-    <div className="p-5">
+    <div className="p-5 d-flex flex-column align-content-center">
       <h2>Suggestions</h2>
       <Carousel
         className="w-75 m-auto"
@@ -80,7 +90,7 @@ export default function AllProducts() {
       {subTypes && subTypes.map((title)=> {
         return (
           <>
-          <Link to={`/products/${maintype}/${title}`}><h2 key={uuidv4()} className="mt-5">{title}</h2></Link>
+          <Link to={`/products/${maintype}/${title}`}><h2 key={uuidv4()} className="mt-5">{renderLabel(title)}</h2></Link>
           <Carousel
           responsive={responsive}
           infinite={true}
@@ -98,6 +108,7 @@ export default function AllProducts() {
           ))}
         </Carousel>
           <SingleProductDetail product={currentProduct} />
+          <hr />
         </>
         )
       })}

@@ -30,7 +30,7 @@ export default function ProductsSubTypeItems() {
     dispatch(addToCart({quantity, productId, token}))    
 
   }
-
+console.log(subtype)
   useEffect(() => {
     dispatch(fetchProductSubtype({maintype, subtype}))
   }, [dispatch])
@@ -41,7 +41,7 @@ export default function ProductsSubTypeItems() {
         fontWeight: "bold"
       }}>{renderLabel()}</h1>
       <hr />
-      <div className="row">
+      <div className="row justify-content-center">
       {subTypeItems.map((product) => {
         return(
           <div className="card p-2" style={{width: "18rem"}} key={product.product.id}>
@@ -67,3 +67,4 @@ export default function ProductsSubTypeItems() {
     </div>
   )
 };
+
