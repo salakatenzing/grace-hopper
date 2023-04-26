@@ -17,7 +17,6 @@ const EditProfile = () => {
   const handleChange = (event) => {
     setForm({
       ...form,
-      //match the name of the input to the form, populates
       [event.target.name]: event.target.value,
     });
   };
@@ -25,7 +24,7 @@ const EditProfile = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await dispatch(updatePassword(form));
+      dispatch(updatePassword(form));
       <Navigate to="/profile" />;
     } catch (error) {
       console.log(error);
@@ -39,9 +38,15 @@ const EditProfile = () => {
         <button className="btn btn-primary mb-3">Admin Privileges</button>
       )}
       <div>
-        <p>{firstName}</p>
-        <p>{lastName}</p>
-        <p>Email: {email}</p>
+        <p>
+          <strong>First Name:</strong> {firstName}
+        </p>
+        <p>
+          <strong>Last Name:</strong> {lastName}
+        </p>
+        <p>
+          <strong>Email:</strong> {email}
+        </p>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -74,12 +79,6 @@ const EditProfile = () => {
           Save Changes
         </button>
       </form>
-      <br />
-      {/* {userType === 'customer' ? (
-        <button className="btn btn-primary"> Admin</button>
-      ) : (
-        <div></div>
-      )} */}
     </div>
   );
 };

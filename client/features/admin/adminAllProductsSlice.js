@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 
 export const fetchAllProducts = createAsyncThunk(
   '/products/fetchAll',
@@ -18,7 +17,7 @@ export const deleteProduct = createAsyncThunk(
   '/product/deleteProduct',
   async (productId) => {
     try {
-      const { data } = await axios.delete(`/api/products/${productId}`);
+      await axios.delete(`/api/products/${productId}`);
       return { id: productId };
     } catch (err) {
       console.log(err);

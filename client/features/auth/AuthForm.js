@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { authenticate, setErrorMessage } from '../../app/store';
@@ -5,12 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import Login from './Login';
 import SignUp from './SignUp';
 
-/**
-  The AuthForm component can be used htmlFor Login or Sign Up.
-  Props htmlFor Login: name="login", displayName="Login"
-  Props htmlFor Sign up: name="signup", displayName="Sign Up"
-**/
-//The name is the method of the for the server to use, this the method that the slice uses -> Tenzing Salaka
 const AuthForm = ({ name, displayName }) => {
   const { error, setError } = useState('');
   const dispatch = useDispatch();
@@ -33,8 +28,6 @@ const AuthForm = ({ name, displayName }) => {
         const formName = evt.target.name;
         const email = evt.target.email.value;
         const password = evt.target.password.value;
-        // dispatch(authenticate({ email, password, method: formName }));
-        // navigate('/', { replace: true });
         const result = await dispatch(
           authenticate({ email, password, method: formName })
         );
@@ -48,8 +41,6 @@ const AuthForm = ({ name, displayName }) => {
         console.log(error);
       }
     }
-
-    // console.log(`firstNAme: ${firstName}, lastName:${lastName}`);
   };
   const handleNoAccount = () => {
     if (name === 'login') {

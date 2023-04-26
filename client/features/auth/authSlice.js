@@ -1,14 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-/*
-  CONSTANT VARIABLES
-*/
 const TOKEN = 'token';
 
-/*
-  THUNKS
-*/
 export const me = createAsyncThunk('auth/me', async () => {
   const token = window.localStorage.getItem(TOKEN);
   try {
@@ -18,13 +12,13 @@ export const me = createAsyncThunk('auth/me', async () => {
           Authorization: token,
         },
       });
-      //   console.log(`inside authSlics: ${JSON.stringify(res.data)}`);
       return res.data;
     } else {
       return {};
     }
   } catch (err) {
     if (err.response.data) {
+      // eslint-disable-next-line no-undef
       return thunkAPI.rejectWithValue(err.response.data);
     } else {
       return 'There was an issue with your request.';
@@ -46,20 +40,11 @@ export const authenticate = createAsyncThunk(
       window.localStorage.setItem(TOKEN, res.data.token);
       thunkAPI.dispatch(me());
     } catch (err) {
-      // if (err.response.data) {
-      //   console.log(err.response.data);
-      //   return thunkAPI.rejectWithValue(err.response.data);
-      // } else {
-      //   return 'There was an issue with your request.';
-      // }
       throw err;
     }
   }
 );
 
-/*
-  SLICE
-*/
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -87,15 +72,9 @@ export const authSlice = createSlice({
   },
 });
 
-/*
-  ACTIONS
-*/
 export const { logout } = authSlice.actions;
 export const selectUser = (state) => {
   return state.auth;
 };
 
-/*
-  REDUCER
-*/
 export default authSlice.reducer;

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../Cart/cartSlice';
@@ -23,8 +24,12 @@ export default function SingleProduct({ product }) {
           data-bs-target="#productModal"
         />
         <div className="card-body">
-          <h5 className="card-title">{product.name}</h5>
-          <p className="card-text">{product.price}</p>
+          <h5 className="card-title">
+            {product.name.length > 15
+              ? product.name.slice(0, 15) + '...'
+              : product.name}
+          </h5>
+          <p className="card-text">${product.price}</p>
           <button
             type="submit"
             id={product.id}

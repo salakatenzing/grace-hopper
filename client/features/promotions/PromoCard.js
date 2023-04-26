@@ -1,8 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
 export default function PromoCard({ value }) {
-  // console.log(value);
-
   return (
     <div className={value === 0 ? 'carousel-item active' : 'carousel-item'}>
       <svg
