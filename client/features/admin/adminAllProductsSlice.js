@@ -14,7 +14,7 @@ export const fetchAllProducts = createAsyncThunk(
   }
 );
 
-export const deleteSingleProduct = createAsyncThunk(
+export const deleteProduct = createAsyncThunk(
   '/product/deleteProduct',
   async (productId) => {
     try {
@@ -39,20 +39,6 @@ export const addProduct = createAsyncThunk(
   }
 );
 
-export const fetchMainCategory = createAsyncThunk(
-  '/products/mainCategory',
-  async (main_type) => {
-    try {
-      const { data } = await axios.get(
-        `/api/product-tags/maintype/${main_type}`
-      );
-      return data;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
-
 export const updateProduct = createAsyncThunk(
   'products/updateProduct',
   async (student) => {
@@ -65,7 +51,7 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
-const allProductsSlice = createSlice({
+const adminAllProductsSlice = createSlice({
   name: 'allProducts',
   initialState: [],
   reducers: {},
@@ -73,10 +59,7 @@ const allProductsSlice = createSlice({
     builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
       return action.payload;
     });
-    builder.addCase(fetchMainCategory.fulfilled, (state, action) => {
-      return action.payload;
-    });
-    builder.addCase(deleteSingleProduct.fulfilled, (state, action) => {
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
       const { id } = action.payload;
       return state.filter((product) => product.id !== id);
     });
@@ -100,5 +83,5 @@ const allProductsSlice = createSlice({
   },
 });
 
-export const selectAllProducts = (state) => state.allProducts;
-export default allProductsSlice.reducer;
+export const selectAllProducts = (state) => state.adminAllProducts;
+export default adminAllProductsSlice.reducer;

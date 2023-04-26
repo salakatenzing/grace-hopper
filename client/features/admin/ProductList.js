@@ -4,7 +4,8 @@ import {
   selectAllProducts,
   fetchMainCategory,
   deleteProduct,
-} from '../products/allProductsSlice';
+} from './adminAllProductsSlice';
+import { deleteSingleProduct } from '../products/allProductsSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import ProductInfo from './ProductInfo';
@@ -38,9 +39,10 @@ const ProductList = () => {
       {allProducts.map((product) => {
         const productInfoId = `productInfo-${product.id}`;
         const updateProductId = `updateProduct-${product.id}`;
+        const uuid = uuidv4();
         return (
           <div
-            key={uuidv4()}
+            key={uuid}
             className="row align-items-center"
             style={{ border: '1px solid #ccc' }}
           >
