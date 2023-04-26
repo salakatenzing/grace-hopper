@@ -5,7 +5,10 @@ export const updatePassword = createAsyncThunk(
   'user/updateUser',
   async (formData) => {
     try {
-      const { data } = await axios.put('/auth/change-password', formData);
+      const { data } = await axios.put(
+        'https://maverick-merchants.onrender.com/api/auth/change-password',
+        formData
+      );
       return data;
     } catch (error) {
       console.log(error);

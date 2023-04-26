@@ -5,7 +5,9 @@ export const fetchSingleProduct = createAsyncThunk(
   '/products/fetchOne',
   async (productId) => {
     try {
-      const { data } = await axios.get(`/api/products/${productId}`);
+      const { data } = await axios.get(
+        `https://maverick-merchants.onrender.com/api/products/${productId}`
+      );
       return data;
     } catch (err) {
       console.log(err);

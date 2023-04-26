@@ -5,7 +5,9 @@ export const fetchAllProducts = createAsyncThunk(
   '/products/fetchAll',
   async () => {
     try {
-      const { data } = await axios.get('/api/products');
+      const { data } = await axios.get(
+        'https://maverick-merchants.onrender.com/api/products'
+      );
       return data;
     } catch (err) {
       console.log(err);
@@ -17,7 +19,9 @@ export const deleteProduct = createAsyncThunk(
   '/product/deleteProduct',
   async (productId) => {
     try {
-      await axios.delete(`/api/products/${productId}`);
+      await axios.delete(
+        `https://maverick-merchants.onrender.com/api/products/${productId}`
+      );
       return { id: productId };
     } catch (err) {
       console.log(err);
@@ -30,7 +34,10 @@ export const addProduct = createAsyncThunk(
   async (product) => {
     try {
       const newProduct = { ...product };
-      const { data } = await axios.post('/api/products', newProduct);
+      const { data } = await axios.post(
+        'https://maverick-merchants.onrender.com/api/products',
+        newProduct
+      );
       return data;
     } catch (err) {
       console.log(err);
@@ -42,7 +49,10 @@ export const updateProduct = createAsyncThunk(
   'products/updateProduct',
   async (student) => {
     try {
-      const { data } = await axios.put(`/api/products/${student.id}`, student);
+      const { data } = await axios.put(
+        `https://maverick-merchants.onrender.com/api/products/${student.id}`,
+        student
+      );
       return data;
     } catch (err) {
       console.log(err);
