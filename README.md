@@ -2,6 +2,21 @@
 
 Description: E-Commerce grocery site
 
+##Demo##
+
+
+https://github.com/salakatenzing/grace-hopper/assets/20289725/231974e2-0f1b-4942-9a78-1b8225e104a3
+
+
+
+##Code snippets ##
+![grace_hopper1](https://github.com/salakatenzing/grace-hopper/assets/20289725/cf0d95c5-ecc5-43bd-89ed-a9602bc0cd05)
+
+##Database snippet##
+![gracer_hooper_db](https://github.com/salakatenzing/grace-hopper/assets/20289725/6375e3b0-9e3b-4a4f-a88d-f45bfefe96af)
+
+
+
 # Tier 1: MVP Shopping Experience
 
 1. As a customer/visitor, I want to be able to:
